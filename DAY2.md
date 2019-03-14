@@ -42,3 +42,4 @@ a,b,c = 10,11,12
     2) 변경 불가능 : int, float, complex, bool, str, tuple
     
     
+등등 자료형을 살펴봄.. (%d, %s, {}, .split, 와 같은 기본적인 함수? 들)
