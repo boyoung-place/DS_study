@@ -1,0 +1,9 @@
+# 2019.03.12 (화) 스터디 내용정리
+## SHAP
+ - SHapley Additive exPlanations
+1. SH: 각 피쳐의 importance를 amrginal하게 계산한 값, 각 피쳐의 조합에서 특정 피텨가 기여하는 정도(값)을 조합의 개수로 나누어 평균낸 값.
+2. SHAP: 각 피쳐별로 SH에 대한 값을 벡터로 나타내는 데 y값에 어떠한 영향을 미치는지, 방향성과 강도를 나타내는 데에 사용함.
+3. Shapley value: 특정 결과에 각 공헌자가 얼마나 공헌했는지를 나타내는 수치 (게임이론에 나오는 개념)
+##Hyperopt
+- 기존 random search와 베이지안 optimization의 특헝을 혼합하여 만든 하이퍼파라미터 최적화 방법론.
+- log-normal, normal, uniform(random) 등 다양한 분포가정을 통해 파라미터 값을 조정할 수 있음 + 좀 더 알아보야아함  NEXT WEEK...
