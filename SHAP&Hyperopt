@@ -13,3 +13,7 @@
   : 각 방법은 설명력이 약하거나 예측력이 약하거나 둘 중 하나가 더 약할 수 밖에 없다. (설명력과 예측력은 trade-off 관계에 있음.)
     BUT, catboost? 와 같이 높은 예측력을 가지는 동시에 설명력 또한 가지고 있는 모델들이 늘어나고 있다.
     (대표적인 예로, LIME이나 Shapley Value가 있음)
+
+
+-Hyperopt 관련:
+https://medium.com/district-data-labs/parameter-tuning-with-hyperopt-faa86acdfdce
