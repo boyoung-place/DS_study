@@ -21,6 +21,7 @@
 
 -Hyperopt 관련:
 https://medium.com/district-data-labs/parameter-tuning-with-hyperopt-faa86acdfdce
+http://sanghyukchun.github.io/99/ (cb님이 알려준 참고사이트: 설명 이해하기 쉽게 잘 되어있음!)
 
 
 ## Feature Interaction 관련
