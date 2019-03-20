@@ -26,3 +26,7 @@ http://sanghyukchun.github.io/99/ (cb님이 알려준 참고사이트: 설명 �
 
 ## Feature Interaction 관련
  https://christophm.github.io/interpretable-ml-book/interaction.html
+
+- 참고사항: random search에 관하여서 (Hyperopt를 이해하기 위해 선이해가 필요한 개념):
+ random search는 grid로 제한되지 않기 때문에 "확률적으로" 중요한 parameter를 더 살펴볼 수 있는 기회를 더 받게 된다.
+ random search는 말그대로 무작위로 골라 search하여 예측을 하는 것이기 때문에, 그냥 random search로 중요한 파라미터를 더 살펴볼 수 있다고 하면 이해가 쉽지 않을 것이다. 랜덤 서치는 그냥 중요한 파라미터를 더 살펴볼 수 있는게 아니라, 그럴 "확률"이 더 높다는 것이다. 이 점을 누락하지 말자.
