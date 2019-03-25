@@ -1,7 +1,10 @@
 ## QUI 구현
 GUI를 구현하는 데에는 여러 라이브러리가 있으나, 이 수업에서는 wxPython을 이용하여 구현함.
-- GUI: Graphical User Interface)의 약자이며, 사용자가 그래픽을 통해 컴퓨터와 정보를 교환하는 작업 환경을 뜻함.
 해당 라이브러리를 import하여 코드작업을 통해 윈도우 창을 구현할 수 있다.
+- GUI: Graphical User Interface)의 약자이며, 사용자가 그래픽을 통해 컴퓨터와 정보를 교환하는 작업 환경을 뜻함.
+- 라이브러리 준비
+  : 1) 직접 다운로드 -> site-packages에 복사  2) pip install 모듈명  3) pycharm에서 직접 세팅(File-setting-project interpreter-추가)
+
 
 
 
