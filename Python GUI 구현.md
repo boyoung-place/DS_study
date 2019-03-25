@@ -2,3 +2,7 @@
 GUI를 구현하는 데에는 여러 라이브러리가 있으나, 이 수업에서는 wxPython을 이용하여 구현함.
 - GUI: Graphical User Interface)의 약자이며, 사용자가 그래픽을 통해 컴퓨터와 정보를 교환하는 작업 환경을 뜻함.
 해당 라이브러리를 import하여 코드작업을 통해 윈도우 창을 구현할 수 있다.
+
+
+
+-개념참고: https://m.blog.naver.com/PostView.nhn?blogId=nonamed0000&logNo=220879681052&proxyReferer=https%3A%2F%2Fwww.google.com%2F
