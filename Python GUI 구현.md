@@ -8,13 +8,13 @@ GUI를 구현하는 데에는 여러 라이브러리가 있으나, 이 수업에
 - GUI 구현 기본
 '''
 import wx
-# 어플리케이션 생성
+(Meaning)어플리케이션 생성
 app = wx.App()
-# 프레임 생성
+(Meaning)프레임 생성
 frame = wx.Frame(None, title="첫번째 윈도우)
-# 화면 나타내기
+(Meaning)화면 나타내기
 frame.Show(True)
-# 어플리케이션 실행
+(Meaning)어플리케이션 실행
 app.MainLoop()
 '''
 결과= 첫번째 윈도우라고 타이틀이 걸린 프레임이 생성된다. (Grey Box, 아직 텍스트입력은 불가)
