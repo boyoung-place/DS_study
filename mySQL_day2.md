@@ -1,11 +1,11 @@
-SQL의 시작
+## SQL의 시작
 -MySQL  (VS Oracle VS MS-SQL server 등 비슷한거 많음.) 규모가 크지않으면 대부분 MySQL씀.
 -SQLite
 -MongoDB
 
 데이터: 정형(어떤 데이터가 저장될것인지 미리정해놓고 모음), 비정형 데이터
 
-DataBase
+### DataBase
 ================
 Data Persistence
 파일 => DBMS
@@ -58,19 +58,19 @@ DataWareHousing(DataMining)
     2) 윈도우용 : workbench, heidi
 
 
-    # mysql show databases; 에서 information_schema/mysql/performance_schema/sys는 가급적이면 사용금지(잘못했다간 프로그램 다시 깔아야함)
+    --mysql show databases; 에서 information_schema/mysql/performance_schema/sys는 가급적이면 사용금지(잘못했다간 프로그램 다시 깔아야함)
     sakila & world는 sample = 실습가능
 
-    # use "DB 이름"
+    --use "DB 이름"
 
-    # show tables;
+    --show tables;
     table 뭐 있는지 확인
     실제 데이터를 저장하고 있는것 = Table  ( tables ⊂ DB ⊂ DBMS )
 
-    # desc "이름 among tables";
+    --desc "이름 among tables";
     Table의 구조 파악 필요함.
 
-    # SELECT first_name FROM "table이름"
+    --SELECT first_name FROM "table이름"
     Table의 특정부분 확인
 
 3. 접속 시 기본 작업명령어 # sql은 대,소문자 구분안함
