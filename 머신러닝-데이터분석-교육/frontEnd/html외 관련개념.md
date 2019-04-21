@@ -8,7 +8,7 @@
 
   2) URL: 프로토콜명://도메인주소(아이피주소):( )/파일명( )  <-괄호 안에 들어가야할게 무엇인지
 
-  ​    - 답: 포트번호/파일면#세부위치 (부가설명: 포트번호가 있어야 실제 프로그램 접근까지 가능하다.)
+  ​    - 답: 포트번호/파일명#세부위치 (부가설명: 포트번호가 있어야 실제 프로그램 접근까지 가능하다.)
 
   3) table 중에서 열 합치기, 행 합치기 속성은?
 
@@ -22,14 +22,24 @@
 
   5) css 사용방법 3가지 서술
 
-  ​    - 답: (1) external style: 별도의 css파일을 만들어서 호출하여 사용하는 방법
+     - 답: (1) external style: 별도의 css파일을 만들어서 호출하여 사용하는 방법
+
+       ​        
+
+       ```css
+        <link> 로 호출?
+       ```
+
+       
 
   ​            (2) Internal style: 
 
   ​               하나의 페이지에 단 한번만 정의함으로써 같은 페이지 내에서는 동일한 디자인을 재사용할 수 있다.
 
-          <style> 사용(속성으로 사용하는 것과 다르다)
-  ​                 selector {속성명:값; 속성명:값; ...}
+  ```html
+        <style> 사용(속성으로 사용하는 것과 다르다)
+        selector {속성명:값; 속성명:값; ...}
+  ```
 
   ​            
 
@@ -101,17 +111,14 @@
 
        문서(대부분 Markup Language)를 객체로 표현하기 위한 표준, 자바스크립트, 자바, C, C++, C# 등 다양한 언어에서 DOM API를 지원
 
+       웹 브라우저가 HTML 페이지를 인식하는 방식
+
         (1) Node : DOM에서 표현되는 모든 것
+       
 
-       ![1555581853070](C:\Users\acorn\AppData\Roaming\Typora\typora-user-images\1555581853070.png)
+  ​        (2) document : 문서 전체를 나타내는 인터페이스. node인터페이스를 상속받는다.
 
-  ​              (2) document : 문서 전체를 나타내는 인터페이스. node인터페이스를 상속받는다.
-
-     ![1555581936041](C:\Users\acorn\AppData\Roaming\Typora\typora-user-images\1555581936041.png)
-
-  
-
-  ​               (3) element: 태그를 나타내는 인터페이스
+  ​        (3) element: 태그를 나타내는 인터페이스
 
   ​                     tagName
 
@@ -125,28 +132,136 @@
 
    8) mtv 패턴에 대해 서술
 
-  ​     일반적으로 말하는 MVC패턴에 대해 장고는 용어 표현을 달리하고 있다. 장고는 MTV(Model Template View: 보통은 MVC) 구조에 의해 프로젝트를 처리하고 있다. 즉, Model은 DB처리를, Templates가 출력에 관련된 역할(출력파일을 별도관리)을 하고, View는 컨트롤러 역할(요청과 처리를 제어)을 하게 된다. 이러한 구조 내에서 전체 파일들 사이의 관계를 settings.py를 통해서 진행한다. (이미지 출처:<https://sonej.tistory.com/53> )
+  ​     일반적으로 말하는 MVC패턴에 대해 장고는 용어 표현을 달리하고 있다. 장고는 MTV(Model Template View: 보통은 MVC) 구조에 의해 프로젝트를 처리하고 있다. 즉, Model은 DB처리를, Templates가 출력에 관련된 역할(출력파일을 별도관리)을 하고, View는 컨트롤러 역할(요청과 처리를 제어)을 하게 된다. 이러한 구조 내에서 전체 파일들 사이의 관계를 settings.py를 통해서 진행한다.
 
-  ![1555582418657](C:\Users\acorn\AppData\Roaming\Typora\typora-user-images\1555582418657.png)
+
+
+
 
 - 실습해보기
 
   1) 테이블만들기  레이아웃나눠서..( 불규칙한 테이블 만들기)
 
+  ```html
+<!DOCTYPE html>
+  <html lang="en">
+  <head>
+      <meta charset="UTF-8">
+    <title>Title</title>
+  </head>
+<body>
+      <div style="width:600px">
+          <div style="height:50px;background-color:yellow"> 상단메뉴</div>
+          <div style="margin-top:10px">
+              <div style="width:100px;height:300px;background-color:red;float:left;margin-right:10px">왼쪽사이드 메뉴</div>
+              <div style="width:490px;height:300px;background-color:blue;float:left">컨텐츠 영역</div>
+        </div>
+          <div style="clear:both"></div>
+        <div style="height:50px;background-color:cyan;margin-top:10px">하단메뉴</div> 
+      </div>
+  </body>
+  </html>
+  ```
+  
   2) css 문제:  
-
+  
   ```html
   <h1 class="BLUE">글자색을 파랑색으로</h1>
   ```
-
-  3)  DOM문제,, javascript
-
+  
+  ​       아래의 style태그를 head안에 넣어준 css파일을 만든다(예: test.css)
+  
+  ```css
+  .BLUE{
+      font size:9pt;
+      font-weight:normal;
+      text-indent: 5%
+      color:blue;
+       }
+  ```
+  
+  ​        link를 사용한 태그를 head안에 넣어준 html파일을 만든다. (예: main.html)
+  
   ```html
+  <head>
+      <link rel="stylesheet" type="text/css" href="../test.css" />
+  </head>
+  <body>
+      <h1 class="BLUE">글자색을 파랑색으로</h1>
+  </body>
+  ```
+  
+  
+  
+  3)  (PASS) DOM문제,, javascript
+  
+  ```javascript
       <body><div>a 입니다.</div>
   
       <span id="b"> b입니다. </span> </body>
   ```
-
+  
+  ​     스크립트 안에 b관련 책갈피? 걸어주기  (문제 이해가 필요... )
+  
   4) http://127.0.0.1:8000/myapp 했을때 안녕하세요라는 문자열 출력(html 안만들고)
-
+  
+  ​    Django로 해결!
+  
+  ​    django-admin startproject project1 
+  
+  ​    -> (이때 project1까지 접근하여 command해야한다) python manage.py startapp myapp 
+  
+  ​    -> myproject1폴더 -> settings.py INSTALLED APP 에서 startapp 추가 -> 
+  
+  ​     (1) myproject1 - urls.py
+  
+  ```    django
+  from django.contrib import admin
+  from django.urls import path
+  from django.contrib import admin
+  from django.urls import path
+  from django.urls.conf import include
+  from myapp import views
+  
+  urlpatterns = [
+      path('admin/', admin.site.urls),
+      path('myapp/', include('myapp.urls'))
+  ```
+  
+  
+  
+  ​      (2) myapp - urls.py
+  
+  ​         
+  
+  ```django
+  from django.urls import path
+  from myapp import views
+  
+  urlpatterns = [
+      path('', views.index),
+  ]
+  
+  #http://127.0.0.1:8000/myapp1
+  ```
+  
+  
+  
+  ​      (3)  myapp - views.py
+  
+  ​       
+  
+  ```django
+  from django.shortcuts import render
+  from django.http.response import HttpResponse
+  
+  # Create your views here.
+  def index(request):
+      return HttpResponse("여기는 메인페이지 입니다.")
+  ```
+  
+  ​     python manage.py runserver
+  
+  
+  
   5) 4)의 문제를 html을 만들어서 출력
