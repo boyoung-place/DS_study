@@ -127,6 +127,7 @@
  - 생성함수 : data.frame(), read.table(), read.csv()
  
  - 처리함수 : str(), ncol(), nrow(), apply(), summary(), subset(), ...
+ 
 
 #### (6) stringr
 
@@ -147,6 +148,8 @@
 ​	8) str_locate()<br>
 
 ​	9) str_locate_all()<br>
+
+
 
 
 
