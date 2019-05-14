@@ -316,6 +316,44 @@ Sys.time()
 #install.packages("stringr")
 library(stringr)
 
+?str_extract  # pattern은 정규 표현식을 의미한다.
+str_extract("홍길동35이순신45유관순25", "[1-9]{2}")
+str_extract_all("홍길동35이순신45유관순25", "[1-9]{2}")
+
+string <- "hongkd105leess1002you25강감찬2005"
+
+# 3자리의 영문자만 찾기
+str_extract_all(string, "[a-z]{3}")
+str_extract_all(string, "[a-z]{3,}")
+str_extract_all(string, "[a-z]{3,5}")  # 쉼표뒤에 공백있으며 안된다.
+str_extract_all(string, "[가-히]{3}")
+
+# 영문자를 뺀 나머지
+str_extract_all(string, "[^a-z]")  #대괄호 안에선 제외/ 밖에서는 ... 의 의미
+
+str_length(string)
+
+# 위치
+str_locate(string, "강감찬")
+
+str_sub(string, 1, str_length(string)-7)
+
+# 추가
+str_c(string, "유비55")  # c: combine
+
+string2 <- "hongkd105,leess1002,you25,강감찬2005"
+str_split(string2, ",")
+
+str_vec <- c("홍길동35", "이순신45", "유관순25", "강감찬55")
+str_vec
+p <- paste(str_vec, collapse = ",")
+p
+
+
+
+
+
+
 
 
 
