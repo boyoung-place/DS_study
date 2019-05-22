@@ -1,4 +1,4 @@
-# T-test는 3개로 넘어가면 잘 안쓴다.
+# T-test는 3개로 넘어가면 안쓴다.
 # T-test를 쓰기 위해서 
 # 1. T-test(), student t-test, independnt t-test
 # 2. Mann_whitney U test, Wilcoxon rank-sum test, Mann-Whitney-Willcoxon test(MWW)
@@ -73,6 +73,7 @@ shapiro.test(a) # p-value = 0.1058 -> 정규분포 맞음
 mean(a)
 ?t.test
 t.test(a, mu=55, alternative="greater") # p-value = 0.4046 -> 모집단의 평균과 같다.?
+# altenative : 연구(대립)가설
 # 0교시 수업 진행 안하는걸로... 변화가 없으니까
 
 # 아래 20개의 도시는 우리나라 76개의 자치도시 중에 20개만 뽑은 것이다.
@@ -102,6 +103,10 @@ si.mean <- mean(c$birth_rate[c$dummy==1])  #1.37812
 
 shapiro.test(c$birth_rate[c$dummy==0]) # p-value = 0.009702 -> 정규분포x
 shapiro.test(c$birth_rate[c$dummy==1]) # p-value = 0.001476 -> 정규분포x
+
+# formula(~): capture the meaning of this code, without evaluating it right away
+
+
 
 wilcox.test(c$birth_rate~ c$dummy, data=c) 
 # p-value = 0.04152 -> 귀무가설 기각 -> 연구 가설 채택(차이가 있다.)
@@ -210,4 +215,3 @@ with(e2, t.test(RESULT[GROUP=='birth_rate_2015'] - RESULT[GROUP=='birth_rate_201
 # 등분산 test
 with(e2, var.test(RESULT[GROUP=='birth_rate_2015'], RESULT[GROUP=='birth_rate_2010']))
 # p-value = 0.7058  -> 유의한 차이가 없다.
-

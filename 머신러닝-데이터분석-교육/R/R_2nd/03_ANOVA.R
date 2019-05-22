@@ -67,6 +67,15 @@ head(iris)
 table(iris$Species)  # setossa / versicolor / virginica 각각 50개씩
 densityplot(Sepal.Width~Species, data=iris)
 
+# formula 이해하기
+#install.packages("doBy")
+library(doBy)
+?summaryBy # Function to calculate groupwise summary statistics
+summaryBy(Sepal.Width + Sepal.Length ~ Species, iris)
+# ‘Sepal.Length + Sepal.Length ~ Species’ 
+# Sepal.Width와 Sepal.Length를 +로 연결해 이 두 가지에 대한 값을 결과에 각 컬럼으로 놓고, 각 행에는 ~ Species를 사용해 Species를 놓았다. 즉, 위 결과는 Sepal.Width와 Sepal.Length를 Species별로 요약한 것이다.
+
+
 # 귀무가설: iris의 Sepal.Width는 Species에 따라 차이가 없다.
 # 연구가설: iris의 Sepal.Width는 Species에 따라 차이가 있다.
 
