@@ -126,5 +126,88 @@ var.test(mtcars[mtcars$am==1, 1], mtcars[mtcars$am==0, 1]) #p-value = 0.06691 ->
 # t.test(mtcars$mpg[mtcars$am == 0], mu=m_mpg) #p-value = 1.613e-07 -> 귀무가설 기각
 t.test(mpg~am, data=mtcars, var.equal=T, conf.level=0.95) # p-value = 0.000285 -> 귀무가설 기각
 
+################################################################################
+###### Paired Samples T-Test
+# (참고) t-test(student t) : 1. 연속변수 2. 정규분포 -> 아니면, MWW  3.등분산 -> 아니면, welch's
 
+# 정규분포가 아니거나 서열변수 : Willcoxon signed rank test
+# Willcoxon matched paires rank test, Wilcoxon t-test, Wilcoxon test
+# 표본의 갯수가 반드시 같아야 한다.
+?t.test #Student's t-Test
+getwd()
+# 쥐에게 약투어 전 후 몸무게
+pd <- read.csv("C:/chung/rwork/SecondProject/data/pairedData.csv", header=T)
+pd   
+# Paired test 전, 데이터 정제
+# data wide형, long형 이용
+library(reshape2)
+melt(pd, id='ID', variable.name="GROUP", value.name="RESULT")
+
+install.packages('tidyr')
+library(tidyr)
+# melt보다 좀 더 직관적으로 사용할 수 있는  함수
+?gather
+pd2 <- gather(pd, key='GROUP', value='RESULT', -ID)
+# 정규분포인지 확인
+# 방법1
+shapiro.test(pd2$RESULT[pd2$GROUP=='before']) #p-value = 0.2768 -> 정규분포
+shapiro.test(pd2$RESULT[pd2$GROUP=='After'])  #p-value = 0.2894 -> 정규분포
+
+# 방법2
+d <- pd2$RESULT[pd2$GROUP=='before'] - pd2$RESULT[pd2$GROUP=='After']
+shapiro.test(d)  # p-value = 0.6141 -> 정규분포
+
+install.packages('PairedData')
+library(PairedData)
+
+# 2개의 시점을 그래프로 (after / before)
+before <- subset(pd2, GROUP=='before', RESULT, drop = T) # drop: 짝이 안맞는경우 버리기기
+after <- subset(pd2, GROUP=='After', RESULT, drop = T)
+
+pd3 <- paired(before, after)
+class(pd3)
+plot(pd3, type='profile') + theme_bw()
+
+t.test(RESULT~GROUP, data=pd2, paired=T) #p-value = 6.2e-09
+
+############## Paired Samples T- Test가 정규분포가 아니거나 서열변수인 경우
+data(sleep)
+head(sleep)
+View(sleep)
+
+shapiro.test(sleep$extra[sleep$group==2] - sleep$extra[sleep$group==1]) # p-value = 0.03334 -> 정규분포 아니다
+# 데이터 이름을 생략하고 사용할 수 있게 해줌 : with
+with(sleep, shapiro.test(extra[group==2] - extra[group==1]))
+
+group_1 <- subset(sleep, group==1, extra, drop = T)
+group_2 <- subset(sleep, group==2, extra, ddrop = T)
+
+sleep_test <- paired(group_1, group_2)
+plot(sleep_test, type='profile') + theme_bw()
+
+# Wilcoxon test
+?wilcox.test
+with(sleep, wilcox.test(extra[group==2] - extra[group==1], exact = F)) #p-value = 0.009091 ->귀무가설 기각
+# 순위가 같은 값일 경우에 계산을 못함... -> Warning messages -> exact=F 설정
+
+
+### 또다른 사례
+
+e1 <- read.csv("C:/chung/rwork/SecondProject/data/paired.csv", header=T)
+head(e1)
+str(e1)
+View(e1)
+
+e2 <- gather(e1, key='GROUP', value='RESULT', -c(ID, cities))
+head(e2)
+with(e2, shapiro.test(RESULT[GROUP=='birth_rate_2015'] - RESULT[GROUP=='birth_rate_2010']))
+# p-value = 0.3839 -> 정규분포
+
+with(e2, t.test(RESULT[GROUP=='birth_rate_2015'] - RESULT[GROUP=='birth_rate_2010']), paired=T)
+# p-value = 0.5055 -> 2010년과 2015년 출산율의 유의한 차이가 없다.
+# !주의! 대응표본의 경우 반드시 표본의 갯수가 반드시 같아야 함
+
+# 등분산 test
+with(e2, var.test(RESULT[GROUP=='birth_rate_2015'], RESULT[GROUP=='birth_rate_2010']))
+# p-value = 0.7058  -> 유의한 차이가 없다.
 
