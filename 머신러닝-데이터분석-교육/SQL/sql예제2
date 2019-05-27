@@ -1,0 +1,43 @@
+1. 오늘부터 12월 25일까지 몇일이 남았는가?
+SELECT DATEDIFF('2019-12-25', Now());
+
+2. 현재까지 근무한 직원들의 근무일수를 몇주 몇일로 조회.(단, 근무일수가 많은 사람 순으로 조회)
+#SELECT ename, job, hiredate, PERIOD_DIFF(Now(), hiredate) From scott_emp ORDER BY hiredate ASC;  --월수로 보여줌.
+#SELECT ename, job, hiredate, TIMESTAMPDIFF(Week, hiredate, Now()) From scott_emp ORDER BY hiredate ASC;
+
+SELECT ename,timestampdiff(week, hiredate, NOW()) 'weeks', MOD(datediff(NOW(),hiredate),7) 'days'FROM scott_emp ORDER BY weeks desc, days desc;
+
+
+
+3. 10번 부서 직원들 중 현재까지의 근무월수를 계산해서 조회
+SELECT ename, deptno, hiredate, PERIOD_DIFF(Now(), hiredate) From scott_emp WHERE deptno = 10;  --월수: PERIOD_DIFF
+
+
+4. 20번 부서 직원들 중 입사일자로부터 13개월이 지난 후의 날짜를 조회
+SELECT deptno, hiredate, DATE_ADD(hiredate, interval 13 MONTH) FROM scott_emp WHERE deptno=20;
+
+5. 모든 직원에 대해 입사한 달의 근무일수를 조회
+SELECT hiredate, DATEDIFF(LAST_DAY(hiredate) , hiredate) FROM scott_emp;
+
+6. 현재 급여에 15%가 증가된 급여를 계산하여 사번,이름, 급여, 증가된 급여를 조회(단, 급여는 반올림하여 적용한다.)
+SELECT empno, ename, sal, ROUND(sal*1.15) FROM scott_emp;
+
+7. 이름, 입사일, 입사일로부터 현재까지의 월수, 급여,급여 총계를 조회
+SELECT ename, hiredate, PERIOD_DIFF(Now(), hiredate), sal*PERIOD_DIFF(Now(), hiredate) FROM scott_emp;
+
+8. 업무가 analyst이면 급여를 10%증가시키고 clerk이면 15%, manager이면 20%증가 시켜서 이름, 업무, 급여, 증가된 급여를 조회
+SELECT ename, job, sal, 
+    CASE
+        WHEN job = 'analyst' THEN ROUND(sal*1.1, 0)
+        WHEN job = 'clerk' THEN ROUND(sal*1.15, 0)
+        WHEN job = 'manager' THEN ROUND(sal*1.2, 0)
+        ELSE sal
+    END new_sal
+    FROM scott_emp;
+
+9. 이름의 첫글자가 k보다 크고 y보다 작은 직원의 이름, 부서, 업무를 조회하시오.
+SELECT ename, deptno, job FROM scott_emp WHERE LEFT(ename,1)>'k' AND LEFT(ename, 1)<'y';
+
+
+각 직원들에 대해 그들의 관리자보다 먼저 입사한 직원의 이름, 입사일, 관리자이름, 관리자 입사일 조회
+SELECT a.ename, a.hiredate, b.ename, b.hiredate FROM scott_emp a INNER JOIN scott_emp b ON a.mgr = b.empno WHERE a.hiredate < ANY(SELECT b.hiredate FROM scott_emp WHERE a.mgr = b.empno);

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="jquery-3.3.0.min.js"></script>
+    <script>
+        $(document).ready(                      // 마우스 올려놨을 때 이미지 change 되게 만들기
+            function(){
+                $("img").attr("src1", function(){
+                    return this.src;        //this는 현재이미지를 가리킨다 src의 의미지를 src1이라는 임의의 속성에 저장시켜둔 것임
+                })
+                .mouseover(function(){        //각각의 이미지에 mouseover했을 때 function을 실행하겠다는 뜻
+                    $(this).attr("src", $(this).attr("src2"));
+                })
+                .mouseout(function(){
+                    $(this).attr("src", $(this).attr("src1"));
+                })
+                .dblclick(function(){
+                    $(this).hide("src");  //doubleclick
+                });
+            }
+       );
+
+    </script>
+    <style>
+        img {width:200px; height:200px}
+    </style>
+</head>
+<body>
+    <div id="photos">
+        <img src="images/Jellyfish.jpg" src2="images/Hydrangeas.jpg"/>
+        <img src="images/Koala.jpg" src2="images/Penguins.jpg" />
+        <img src="images/Lighthouse.jpg" src2="images/Tulips.jpg"/>
+    </div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

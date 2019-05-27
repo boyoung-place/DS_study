@@ -1,0 +1,4 @@
+ /* 주석 */    /* html문법과 상이한 css문법, 별도의 외부 문법 */
+ h1{font-size:20pt; font-family:궁서; color:red}  /* 그동안 태그안에 일일히 했던것을 별도의 하나로 지정 */
+ span{background-color:aqua}     /* 샐렉터{조건:값} */
+ body{color:blue}

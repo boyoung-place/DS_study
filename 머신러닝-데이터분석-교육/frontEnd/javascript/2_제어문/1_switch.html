@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        var avg = 78;
+
+        result = ''
+        if(avg >= 90)
+            result = "A 학점입니다.";
+        else if(avg >=80)
+            result = "B 학점입니다.";
+        else if(avg >=70)
+            result = "C 학점입니다.";
+        else if(avg >= 60)
+            result = "D학점입니다."
+        else
+            result = "F학점입니다."
+
+        document.write(result + "<br>");
+
+        switch(parseInt(avg/10)){     // case는 범위 설정이 안되니까 이런 계산방법을 생각해줘야 함
+            case 9:
+                result = "A 학점입니다."
+                break;
+            case 8:
+                result = "B 학점입니다."
+                break;
+            case 7:
+                result = "C 학점입니다."
+                break;
+            case 6:
+                result = "D 학점입니다."
+                break;
+            default:
+                result = "F 학점입니다."
+        }
+
+        document.write(result + "<br>");
+
+        var avg = "사과";
+        switch(avg){
+            case "배":
+                result = "배를 입력하였음";
+            case "사과":
+                result = "사과를 입력하였음";
+         }
+
+         document.write(result + "<br>");
+    </script>
+</head>
+<body>
+
+</body>
+</html>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        var v1 = 10;  //전역변수, 여기는 var를 붙여도 전역변수라는 것은 변하지않음. var는 변수의 성격을 확실히 해주는 역할을 한다.
+
+        function func1(){
+            var v2 = 20;  //var없이 v2만 있을때, 지역변수가 안된다..?
+            alert("func1():" + v1 + "," + v2)
+        }
+
+        function func2(){
+            alert("func2():" + v1 + "," + v2)  //지역변수같음에도 불구하고 func2()에도 v2가 적용이 됌-> 변수앞에 var를 넣어주면 해결 (var:변수의 성격을 확실하게 구분지어 줌)
+        }
+    </script>
+</head>
+<body>
+    <input type="button" value="func1() 호출" onclick="func1()" /><br><br>
+    <input type="button" value="func2() 호출" onclick="func2()" /><br><br>
+</body>
+</html>

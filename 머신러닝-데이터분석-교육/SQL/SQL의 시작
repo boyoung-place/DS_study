@@ -1,0 +1,857 @@
+SQL의 시작
+
+*SQL활용 능력: 관계형 데이터베이스에서 SQL을 사용하여 목적에 적합한 데이터를 정의하고, 조작하며, 제어하는 능력이다.
+
+-MySQL  (VS Oracle VS MS-SQL server 등 비슷한거 많음.) 규모가 크지않으면 대부분 MySQL씀.
+-SQLite
+-MongoDB
+
+데이터: 정형(어떤 데이터가 어떻게 저장될 것인지 미리정해놓고 모음), 비정형 데이터
+
+DataBase
+================
+Data Persistence
+파일 => DBMS
+DataWareHousing(DataMining)
+대용량 데이터베이스
+
+1. DBMS : Oracle, MS-SQL, CB2, Infomix, Sybase, MySQL(MariaDB)...
+     1) 네트워크 유형에 따라
+         - 로컬 DBMS : Access, SQLite
+         - 네트워크 DBMS : 서버, 클라이언트 (클라이언트가 요청하고 서버가 요청한 데이터를 보내줌, 컴터 2대필요 서버컴퓨터/클라이언트 컴퓨터) 
+           (MySQL은 서버와 클라이언트 둘다의 역할이 가능)
+
+     2) 데이터 저장 형태
+         - 계층형 DB : 데이터를 Tree 모양으로
+         - 네트워크형 DB : Graph (Tree의 단점보완) BUT 실용성 안좋음
+         - 관계형 DB : Table
+         - 객체지향형 DB
+         - 객체관계형 DB
+
+         -- 데이터의 양이 많아짐에 따라 처리속도 더딤.. -> 극복: 네트워크 DB(=Graph) BUT? 실용성이 떨어짐.
+
+     3) SQL(Structured Query Language) : 비절차적 언어, 데이터베이스만을 위한 언어, 생산성 매우 좋음, 
+        여러 언어들의 조합
+        - DDL(Data Definition Language) :데이타 정의  # 데이터가 잘 돌아갈수 있도록
+            CREATE
+            ALTER
+            DROP
+
+        - DML(Data Manipulation)
+            INSERT
+            UPDATE
+            DELETE
+
+        - DCL(Data control)
+            백업, 복원, 인증, 보안
+            GRANT(권한 부여), REVOKE(권한 배제)
+
+        - QL(Query Language)
+            SELECT (조회의 의미로 많이씀,)
+
+          *. ANSI-SQL (어떤 제품을 써도 똑같이 표준문법을 쓸 수 있음)
+             오라클 : PL-SQL
+             MS : T-SQL
+
+        - SQL 사용여부
+            사용 : 관계형 DB
+            사용안함 : 비관계형 DB(NoSQL, Not Only SQL)
+
+2. MySQL 클라이언트 프로그램
+    1) 콘솔 : mysql.exe
+    2) 윈도우용 : workbench, heidi
+
+
+    # mysql show databases; 에서 information_schema/mysql/performance_schema/sys는 가급적이면 사용금지(잘못했다간 프로그램 다시 깔아야함)
+    sakila & world는 sample = 실습가능
+
+    # use "DB 이름"
+
+    # show tables;
+    table 뭐 있는지 확인
+    실제 데이터를 저장하고 있는것 = Table  ( tables ⊂ DB ⊂ DBMS )
+
+    # desc "이름 among tables";
+    Table의 구조 파악 필요함.
+
+    # SELECT first_name FROM "table이름"
+    Table의 특정부분 확인
+
+3. 접속 시 기본 작업명령어 # sql은 대,소문자 구분안함
+    show databases; - DB 뭐가 있는지 알면 사용할 필요x
+    use "특정DB"; (연결) - 처음에 무조건 써야하는 명령어
+    show tables;
+    desc(describe) "table 이름"; -table의 구조 설명 요구 명령어
+    select "이름1", "이름2" from "table 이름"
+ 
+ -- 한줄 주석
+ /*
+ 여러줄
+ 주석
+ */   
+
+4. SELECT
+    1) 기본 문법 (saple sql파일, scott으로 문법 알아보기)
+        SELECT 필드명,... FROM 테이블명;
+        SELECT * FROM 테이블명;  (<- 모든 필드명 선택)
+
+        -- 필드의 가공 처리 (필드에 직접 가공 가능)
+        SELECT empno, ename, sal, sal+100 FROM scott_emp;
+
+        -- 필드의 alias(별명) (보여지는 이름만 달라진다.)
+        SELECT empno, ename, mgr (as,생략가능) manager FROM scott_emp;
+        SELECT empno, ename, mgr as 'my manager' FROM scott_emp; (<-공백있는 alias 사용 시)
+
+        -- 중복 제거(*중요중요*) : disctinct
+        SELECT disctinct job FROM scott_emp;
+    
+    2) 확장 문법 
+        --Tip: 기본문법부터 짜놓고 그 다음에 필요부분 추가할 것
+        2-1) 정렬 기능 : ORDER BY 필드명[, 필드명, ...]  [ASC │ DESC] (1번째 필드명으로 정렬, 그 결과값으로  필드명으로 정렬... 이런식으로 이어나가는 것)
+                -- 급여가 많은 순으로 이름, 급여, 부서코드를 조회 
+                SELECT ename, sal, deptno FROM scott_emp ORDER BY sal DESC;  (내림차순이니까 DESC p.96)
+
+                -- 부서별로 급여가 적은 순으로 이름, 급여, 부서코드 조회
+                SELECT ename, sal, deptno FROM scott_emp ORDER BY deptno ASC, sal ASC;
+
+        2-2) 조건 기능(레코드 필터링) p.65 6장 : WHERE 조건문
+            -- 급여가 3000$ 이상인 직원의 사번, 이름, 급여를 조회
+            SELECT empno, ename, sal FROM scott_emp WHERE sal>=3000;
+
+            -- 업무가 manager인 직원의 이름, 부서, 업무, 급여 조회
+            SELECT ename, deptno, job, sal FROM scott_emp WHERE job = 'manager';   cf)""은 쓰지않는다!
+
+            -- 부서가 20이고 업무가 analyst인 직원의 이름, 부서, 업무, 급여 조회 - 조건 조합하기(p.75)
+            SELECT ename, deptno, job, sal FROM scott_emp WHERE deptno = 20 AND job = 'analyst';
+
+            -- 급여가 1500이상 2500미만을 받는 직원의 이름, 부서, 업무 ,급여 조회 (단, 급여가 많은순으로 정렬)
+                -- 정렬은 항상 맨 마지막에 쓴다.
+            SELECT ename, deptno, job, sal FROM scott_emp WHERE sal>=1500 AND sal<2500 ORDER BY sal DESC;
+
+            -- 급여가 1500이상 2500이하를 조회 (이상, 이하만 가능)
+            SELECT ename, deptno, job, sal FROM scott_emp WHERE sal BETWEEN 1500 AND 2500;
+
+            -- 업무가 clerk, salesman, analyst인 직원의 이름, 부서, 업무, 급여 조회
+            SELECT ename, deptno, job, sal FROM scott_emp WHERE job = 'clerk' or job ='salesman' or job ='analyst';
+            SELECT ename, deptno, job, sal FROM scott_emp WHERE job IN('clerk', 'salesman', 'analyst'); 
+                -- IN : '='와 'OR' 연산자가 붙어있는 경우에만 사용가능
+
+            -- 1982년 1월 1일 이후에 입사한 직원의 이름, 업무, 입사일자 조회
+            SELECT ename, job, hiredate FROM scott_emp WHERE hiredate > '1982-01-01';
+                --날짜는 문자열로 쓰면 자동적으로 날짜변환이 됌, 날짜형만 신경써주면 구분자를 -, , , * 아무거나 해도 상관 x
+           
+            -- 커미션이 없는 직원의 이름, 부서, 업무, 급여, 커미션 조회
+            SELECT ename, deptno, job, sal, comm FROM scott_emp WHERE comm IS NULL;
+                -- SQL은 일치의 뜻으로 '==' 사용안함. 그냥 '='임. ANYWAY null값 검색은 연산자가 아닌 'IS NULL' 사용 (p.73)
+                -- 커미션 자체가 없는 값을 찾을 때 (comm=0 인 것과 다름)
+
+            SELECT ename, deptno, job, sal, comm FROM scott_emp WHERE job != 'salesman';
+                -- 커미션제도는 세일즈맨에게만 있어서 이런 방법으로도 위와 같은 결과값이 나옴.
+
+            -- 커미션이 있는 직원
+             SELECT ename, deptno, job, sal, comm FROM scott_emp WHERE comm IS NOT NULL;   --p.73
+             SELECT ename, deptno, job, sal, comm FROM scott_emp WHERE comm >= 0;
+
+            -- like 연산자
+            /*
+                    % : 0개 이상의 문자 대체
+                    _ : 1개 문자 대체
+                    예) beau% : beau, beaua, beaub,... ....
+                    예) beau__ : beau, beaucd, beauti
+            */
+
+            -- 이름이 s로 시작하는 직원의 이름, 업무, 급여를 조회
+            SELECT ename, job, sal FROM scott_emp WHERE ename like 's%';
+
+        2-3) GROUP BY 필드명[, 필드명....] (p.194), HAVING 조건 (p.198)
+            -- 부서별로 급여 평균, 최저급여 조회
+            SELECT deptno, TRUNCATE(avg(sal),0), min(sal) FROM scott_emp GROUP BY deptno;
+
+            -- 부서별로 급여 평균, 최저급여 조회(단, 급여평균이 높은 순으로)
+            SELECT deptno, TRUNCATE(avg(sal),0), min(sal) FROM scott_emp GROUP BY deptno ORDER BY AVG(sal) DESC;
+
+            -- 전체 급여의 합계가 5000을 초과하는 업무에 대해서 급여합계 조회
+            SELECT job, SUM(sal) FROM scott_emp GROUP BY job HAVING SUM(sal) > 5000;
+            SELECT job, SUM(sal) FROM scott_emp WHERE SUM(sal) > 5000 GROUP BY job; -- 불가
+
+            -- 전체 급여의 합계가 5000을 초과하는 업무에 대해서 급여합계 조회(단, salesman은 제외)
+            SELECT job, SUM(sal) FROM scott_emp GROUP BY job HAVING SUM(sal) > 5000 AND job<>'salesman';
+            (-- 데이터 다 가져온다음 그룹화-> 조건)
+            SELECT job, SUM(sal) FROM scott_emp WHERE job <> 'salesman' GROUP BY job HAVING SUM(sal) > 5000;
+            (-- 데이터 필터링해서 가져온다음 그룹화)
+
+    3) 함수 p.125
+        -- SQL Document (https://dev.mysql.com/doc/refman/5.7/en/string-functions.html#function_substr)
+        3-1) Single-Row function (하나의 레코드에 적용)
+            - String function
+                ASCII(), CHAR()
+                ---------------
+                SELECT ASCII('a');
+                SELECT CHAR(98);
+
+                LENGTH()
+                ---------
+                SELECT LENGTH(ename) FROM scott_emp;  -- 각 사원들 이름의 길이
+
+                INSTR()
+                ---------
+                SELECT INSTR('foobarbar', 'bar');  -- 결과값=4 : 파이썬이랑 달리 1부터 시작함.
+                SELECT INSTR('foobarbar', 'love');  -- 결과값=0
+
+                LEFT(), RIGHT(), SUBSTR(), SUBSTRING()    -- SUBSTR가 SUBSTRING에 합쳐지는 추세임
+                ---------------------------------------
+                SELECT LEFT('abcdefg', 3);
+                SELECT RIGHT('abcdefg', 4);
+                SELECT SUBSTRING('I love SQL', 3);    -- 단어 뭉치로 하나가 됌. 결과값= love (띄어쓰기) SQL
+                SELECT SUBSTRING('I love SQL', 3, 4);    -- 3= 기준위치, 4= 길이
+                SELECT SUBSTRING('I love SQL', -3);  -- -3= 뒤에서 3글자만 뽑아오기
+                SELECT SUBSTRING('I love SQL', -8, 3);
+
+                LOWER(), UPPER()
+                ----------------------
+
+                LTRIM(), RTRIM(), TRIM()    -- 공백 없애주는 기능
+                -----------------------------
+
+
+
+            - Numeric function (숫자처리함수)
+                CEIL(), FLOOR(), ROUND(), TRUNCATE()
+                --------------------------------------
+                SELECT CEIL(1.23);    -- 무조건 올림
+                SELECT FLOOR(1.78);    -- 무조건 내림
+                SELECT ROUND(1.23), ROUND (1.78, 0);
+                SELECT ROUND(1.298, 1);   --소수점 몇째짜리까지 커버할 것인지 나타내줌 = 1
+                SELECT TRUNCATE(1.78, 0);    --Floor처럼 버림. 무슨 차이? 기준위치를 정할 수 있음
+                SELECT TRUNCATE(1.78, 1);
+
+                MOD()
+                -----------
+
+                RAND()
+                -----------
+
+
+            - Date function
+                NOW(), SYSDATE(), CURDATE(), CURTIME()
+                ------------------
+                SELECT NOW();
+
+                YEAR(), MONTH(), DAYOFMONTH()    --년,월,일
+                ------------------------------------
+                SELECT YEAR(NOW()), MONTH(NOW());
+
+                DAYOFWEEK() : 1-일요일 (uses the ODBC standard), WEEKDAY() : 0-월요일
+                -----------------------------------
+                SELECT DAYOFWEEK(NOW()), WEEKDAY(NOW());
+
+                DAYOFYEAR() : 1년 중 몇일이 지났는지 알려줌
+                -------------------------------------------
+                SELECT DAYOFYEAR(NOW());
+
+                DATE_ADD(), DATE_SUB()
+                --------------------------------------
+                SELECT DATE_ADD(NOW(), interval 5 YEAR);
+                SELECT DATE_ADD(NOW(), interval 5 DAY);
+                SELECT DATE_SUB(NOW(), interval 5 YEAR);
+                SELECT DATE_SUB(NOW(), interval 5 DAY);
+
+        3-2) Aggregation function (여러개의 레코드를 묶어서 적용) - 집계함수
+            SUM(), AVG(), COUNT(), MAX(), MIN()
+            ------------------------------------
+            SELECT sum(sal), avg(sal), count(sal), max(sal), min(sal) FROM scott_emp;
+            -- 총 직원수
+            SELECT count(empno) FROM scott_emp;
+            SELECT count(sal) FROM scott_emp;    --급여를 안 받는 직원이 없으니까 가능!
+            SELECT count(comm) FROM scott_emp;    -- 이건안됌. (null값을 세지 않아서..)
+
+            -- 부서별로 급여 평균, 최저급여 조회
+            SELECT distinct deptno FROM scott_emp;
+            SELECT deptno, AVG(sal), MIN(sal) FROM scott_emp WHERE deptno = 10;
+            SELECT deptno, AVG(sal), MIN(sal) FROM scott_emp WHERE deptno = 20;
+            SELECT deptno, AVG(sal), MIN(sal) FROM scott_emp WHERE deptno = 30;
+
+
+        3-3) 그외 기타함수들
+            -- CONVERT()
+            SELECT CONVERT('2019-5-1', DATE);    --문자형을 날짜형으로 바꾸겠다는 뜻
+            SELECT CONVERT(150, CHAR);
+            SELECT CONVERT('14:06:10', TIME);
+
+            -- CASE  (다중조건문? p.140)
+            -- 업무가 salesman이면 '커미션있음' 이라고 하고 그외 업무는 '커미션 없음'이라고 조회
+            SELECT ename, job, comm, 
+                CASE
+                        WHEN job = 'salesman' THEN '커미션 있음'
+                        ELSE '커미션 없음'
+                END  iscomm
+            FROM scott_emp;
+
+            -- COALESCE (p.142) : null값을 다른값으로 대체 가능
+            -- 현재 직원들의 총급여를 조회
+            SELECT empno, ename, sal, comm, (sal+coalesce(comm,0)) as total
+                FROM scott_emp;
+
+5. DML : INSERT, UPDATE, DELETE
+CREATE TABLE tbltest(
+        id        int        null,
+        name      varchar(10),    
+        regdate   datetime
+);
+--null부분은 생략
+    1) INSERT
+        INSERT INTO 테이블명(필드명, ...) VALUES(값, ...) -- 이 방법 추천
+        INSERT INTO 테이블명 VALUES(값, ...)  -- 모든 필드 불러올때
+        ------------------------------------------------------------
+        INSERT INTO tbltest(id, name, regdate) VALUES(1, '홍길동', '2019-3-28');
+        INSERT INTO tbltest(id, regdate) VALUES(2, NOW());
+        INSERT INTO tbltest(id, regdate) VALUES(2, NOW());
+        INSERT INTO tbltest VALUES(3, '임꺽정', NOW());  -- 추천하진않음
+
+    2) UPDATE
+        UPDATE 테이블명
+        SET 필드=값 [,필드=값,...]
+        WHERE 조건문;
+        -------------------------------------------
+        UPDATE tbltest
+        SET name='scott'
+        WHERE id = 2;
+
+    3) DELETE
+        DELETE FROM 테이블명 WHERE 조건;
+        --------------------------------
+        DELETE FROM tbltest;
+
+DROP TABLE 테이블명
+
+*. 한글 인코딩
+show variables like 'c%';
+show variables like 'datadir';
+status
+ALTER DATABASE dbexam DEFAULT CHARACTER SET utf8;
+
+6. Sub Query
+    1) 다른 query문에 포함된 query문
+    2) 반드시 ( ) 사용
+    3) 반드시 연산자의 오른쪽에 와야 한다.
+    4) ORDER BY 사용 불가
+    5) 연산자 
+        단일행 연산자(1:1로만 비교가능) : 
+        다중행 연산자 : IN, ANY, ALL
+    6) 다중열 비교 : (필드, ...)
+    --------------------------------------
+    -- scott의 급여보다 더 많이 받는 직원의 이름, 업무, 급여를 조회
+            SELECT sal FROM scott_emp WHERE ename='scott';  -- 3000
+            SELECT ename, job, sal FROM scott_emp WHERE sal >3000;
+
+            SELECT ename, job, sal FROM scott_emp 
+                    WHERE sal >(SELECT sal FROM scott_emp WHERE ename='scott');
+
+    -- 사번이 7521의 업무와 같고, 급여가 7934보다 많은 직원의 사번, 이름, 업무, 급여조회
+    SELECT empno, ename, job, sal FROM scott_emp WHERE job = (SELECT job FROM scott_emp WHERE empno=7521) AND sal > (SELECT sal FROM scott_emp WHERE empno=7934);
+
+    -- 업무별 최소급여를 받는 직원의 사번, 이름, 부서코드를 조회
+    SELECT DISTINCT job FROM scott_emp;
+    ------------------
+    CLERK
+    SALESMAN
+    MANAGER
+    ANALYST
+    PRESIDENT
+    ------------------
+    SELECT empno, ename, deptno FROM scott_emp WHERE sal = ?;
+    ...
+    -------------------------------------------------------------
+    select job, min(sal) FROM scott_emp GROUP BY job;
+    +-----------+----------+
+    | job       | min(sal) |
+    +-----------+----------+
+    | ANALYST   |     3000 |
+    | CLERK     |      800 |
+    | MANAGER   |     2450 |
+    | PRESIDENT |     5000 |
+    | SALESMAN  |     1250 |
+    +-----------+----------+
+    SELECT empno, ename, deptno FROM scott_emp WHERE sal = 800 OR sal=3000 OR sal=2450 OR sal=5000 OR sal=1250;
+    SELECT empno, ename, deptno FROM scott_emp WHERE sal IN (800,3000,2450,5000,1250);
+    SELECT empno, ename, deptno FROM scott_emp WHERE sal IN (select min(sal) FROM scott_emp GROUP BY job);
+
+    -------------------------------------------------------------------------------------------------------------
+-- 업무별 최소급여보다 많이 받는 직원의 사번, 이름, 부서코드를 조회
+    SELECT empno, ename, deptno FROM scott_emp WHERE sal > 800 OR sal>3000 OR sal>2450 OR sal>5000 OR sal>1250;
+    SELECT empno, ename, deptno FROM scott_emp WHERE sal > ANY (select min(sal) FROM scott_emp GROUP BY job); -- OR연산자에 대응
+
+-- 업무별 최대급여이상 받는 직원의 사번, 이름, 부서코드를 조회
+    SELECT job, MAX(sal) FROM scott_emp GROUP BY job;
+    -----------+----------+
+     ANALYST   |     3000 |
+     CLERK     |     1300 |
+     MANAGER   |     2975 |
+     PRESIDENT |     5000 |
+     SALESMAN  |     1600 |
+    -----------+----------+
+
+    SELECT empno, ename, deptno FROM scott_emp WHERE sal >= 3000 AND sal>=1300 AND sal>=2975 AND sal>=5000 AND sal>=1600;
+    SELECT empno, ename, deptno FROM scott_emp WHERE sal >= ALL (SELECT MAX(sal) FROM scott_emp GROUP BY job); --AND연산자에 대응
+
+--가장 최근에 입사한 직원의 이름, 부서, 업무, 입사일 조회(현재 검색 일자가 1987년이라 가정한다.)
+  MINE) SELECT ename, deptno, job, hiredate FROM scott_emp WHERE hiredate >= ALL (SELECT MAX(hiredate) FROM scott_emp);
+  ANSW) SELECT ename, deptno, job, hiredate FROM scott_emp
+            WHERE hiredate = (SELECT MAX(hiredate) FROM scott_emp);
+
+----------------------------------------------------------------------------------------------------------------------------
+-- 다중열
+SELECT sal, comm FROM scott_emp WHERE ename='miller';
+
+UPDATE scott_emp
+SET sal=1500, comm=300
+WHERE ename='miller';
+
+-- 30번 부서에 있는 직원의 급여와 커미션이 같은 (다른 부서) 직원에 대해 사번, 이름, 부서번호, 급여, 커미션 조회
+SELECT sal FROM scott_emp WHERE deptno=30;
+SELECT comm FROM scott_emp WHERE deptno=30;
+
+SELECT empno, ename, deptno, comm FROM scott_emp 
+    WHERE
+        sal in(SELECT sal FROM scott_emp WHERE deptno=30)
+    AND
+        comm in(SELECT comm FROM scott_emp WHERE deptno=30);  -- 이렇게는 두 조건을 "동시에" 만족하는 결과값이 안나옴.
+
+
+SELECT empno, ename, deptno, comm FROM scott_emp 
+    WHERE
+    (sal, comm) IN (SELECT sal, comm FROM scott_emp WHERE deptno=30);   --급여와 커미션, 두 조건 동시에 만족하는 결과값.
+
+UPDATE scott_emp
+SET sal=1300, comm=null
+WHERE ename='miller';
+
+-- FROM에서 SubQuery 사용
+SELECT * FROM (SELECT empno, ename FROM scott_emp WHERE deptno=30) as t;
+
+-----------------------------------------------------------------------------------
+상관 서브 쿼리 p.216 : 내부의 쿼리에서 외부 쿼리의 테이블의 데이터를 참고하는 쿼리. 이 때 메인 쿼리의 테이블의 행마다 서브쿼리가 반복 실행되어진다.
+====================
+-- 적어도 한명의 직원으로부터 보고를 받을 수 있는 직원의 이름, 업무, 입사일자, 급여를 조회 (부하직원 최소 1명)
+    SELECT DISTINCT mgr FROM scott_emp;
+    ------------------
+    7902
+    7698
+    7839
+    7566
+    NULL
+    7788
+    7782
+
+    SELECT ename, job, hiredate, sal FROM scott_emp
+        WHERE empno IN(7902,7698,7839,7566,7788,7782);
+    SELECT ename, job, hiredate, sal FROM scott_emp
+        WHERE empno=7902 OR empno=7698 OR empno=7839 OR empno=7566 OR empno=7788 OR empno=7782;
+
+    SELECT ename, job, hiredate, sal FROM scott_emp as e1
+        WHERE exists(SELECT * FROM scott_emp as e2 WHERE e1.empno = e2.mgr);  -- 이 방법은 되도록이면 지양
+
+7. JOIN
+    1) 여러 개의 테이블을 병합하여 하나의 결과를 도출하기 위한 방법
+    2) 종류
+        a) Cartesian Product Join(데카르트 곱)
+        b) Equi Join
+            - 공통 필드의 레코드를 가져오는 방법(중복) --이름이같은게 아니라 형식이 같은게 공통 필드
+            - INNER JOIN(중복 제거)
+            ------------------------------------------------------------------------
+            SELECT id, value FROM tblA INNER JOIN tblB ON (ON: WHERE와 같은 뜻)
+                    (소유자.)tblA.id = tblB.id;  ('.':객체 안의 필드사용시..)   --에러발생
+            SELECT tblA.id, tblA.value FROM tblA INNER JOIN tblB ON tblA.id = tblB.id;
+
+            SELECT a.id, a.value FROM tblA a INNER JOIN tblB b ON a.id = b.id;    --표준문법
+
+            SELECT a.id, a.value FROM tblA a, tblB b WHERE a.id = b.id;
+
+            SELECT a.id, a.value FROM tblA a, tblB b; --?? 무슨 의미가 있지? 아무튼 에러생김. 문장자체가 비논리적인뎀...
+
+            -- 직원의 사번, 이름, 업무, 부서번호, 부서명을 조회
+            SELECT a.empno, a.ename, a.job, a.deptno, b.dname FROM scott_emp a INNER JOIN scott_dept b ON a.deptno=b.deptno;
+            SELECT a.empno, a.ename, a.job, a.deptno, b.dname FROM scott_emp a, scott_dept b WHERE a.deptno=b.deptno;
+            
+            SELECT empno, ename, job, scott_emp.deptno, dname 
+            FROM scott_emp INNER JOIN scott_dept 
+            ON scott_emp.deptno=scott_dept.deptno;
+
+            -- salesman에 대해서 직원의 사번, 이름, 업무, 부서번호, 부서명을 조회
+            SELECT empno, ename, job, emp.deptno, dname 
+                 FROM scott_emp emp INNER JOIN scott_dept dept 
+                    ON emp.deptno=dept.deptno AND job='salesman';  --AND조건이 JOIN과 같이 적용
+
+            SELECT empno, ename, job, emp.deptno, dname 
+                 FROM scott_emp emp INNER JOIN scott_dept dept 
+                    ON emp.deptno=dept.deptno WHERE job='salesman';  --WHERE조건이 JOIN이 끝난 다음 적용
+
+            -- New York에서 근무하는 직원의 이름, 업무, 부서명 조회
+            SELECT ename, job, scott_dept.dname,scott_dept.loc FROM scott_emp INNER JOIN scott_dept ON scott_emp.deptno=scott_dept.deptno AND loc='new york';
+
+        c) OUTER JOIN
+            - INNER JOIN 확장
+                INNER JOIN + 공통되지 않은 레코드도 가져온다.
+            - 종류
+                LEFT OUTER JOIN
+                RIGHT OUTER JOIN
+                FULL OUTER JOIN
+            ------------------------------------------------------------------------
+            SELECT a.id, a.value FROM tblA a LEFT OUTER JOIN tblB b ON a.id = b.id;
+            SELECT b.id, b.value FROM tblA a RIGHT OUTER JOIN tblB b ON a.id = b.id;
+
+            -- 직원들의 이름, 급여, 근무지를 조회
+            단, 부서명과 근무지는 모두 출력할 수 있도록 하시오.
+            SELECT ename, sal, scott_dept.loc FROM scott_emp RIGHT OUTER JOIN scott_dept ON scott_emp.deptno=scott_dept.deptno;
+
+        d) Non Equi Join
+            - 공통되지 않는 필드의 레코드를 가져오는 방법
+            ------------------------------------------------------------------------
+            -- 직원들의 사번, 이름, 급여, 급여등급 조회
+            SELECT empno, ename, sal, grade, losal, hisal FROM scott_emp e INNER JOIN scott_salgrade s
+            ON e.sal >= s.losal AND e.sal <= s.hisal;
+
+        e) SELF JOIN (INNER JOIN의 한 형태, 반드시 별명지어야함)
+        -- 직원의 사번, 이름, 업무, 관리자, 관리자이름 조회    -- 사번과 관리자번호를 JOIN해서 관리자이름 찾기
+        SELECT e1.empno, e1.ename, e1.job, e1.mgr, e2.ename
+        FROM scott_emp e1 INNER JOIN scott_emp e2
+        ON e1.mgr = e2.empno;
+
+    3) 3개 이상 JOIN할 경우
+        SELECT a.id, a.value, b.id, b.value, c.id, c.value
+        FROM tblA a INNER JOIN tblB b
+        ON a.id = b.id
+        INNER JOIN tblC c
+        ON b.id = c.id;
+
+        SELECT a.id, a.value, b.id, b.value, c.id, c.value
+        FROM tblA a, tblB b, tblC c
+        WHERE a.id = b.id AND b.id = c.id;
+
+    4) SET 연산자
+        UNION, UNION ALL, INTERSECT, EXCEPT
+        --------------------------------------------
+        SELECT deptno FROM scott_emp     --각각의 테이블에서 나온 결과값을 합친다. (JOIN은 테이블을 합쳐서 결과값 도출)
+        UNION 
+        SELECT deptno FROM scott_dept;
+
+    --------------------------------------------------------------------------------
+    CREATE TABLE tblA(
+            id        int        null,
+            value     int        null
+    );
+
+    CREATE TABLE tblB(
+            id        int        null,
+            value     int        null
+    );
+
+    CREATE TABLE tblC(
+            id        int        null,
+            value     int        null
+    );
+
+    INSERT INTO tblA VALUES(1, 10);
+    INSERT INTO tblA VALUES(2, 20);
+    INSERT INTO tblA VALUES(3, 30);
+    INSERT INTO tblA VALUES(5, 50);
+    INSERT INTO tblA VALUES(7, 70);
+
+    INSERT INTO tblB VALUES(1, 10);
+    INSERT INTO tblB VALUES(2, 20);
+    INSERT INTO tblB VALUES(4, 40);
+    INSERT INTO tblB VALUES(5, 50);
+    INSERT INTO tblB VALUES(8, 80);
+
+    INSERT INTO tblC VALUES(1, 10);
+    INSERT INTO tblC VALUES(2, 20);
+    INSERT INTO tblC VALUES(7, 70);
+    INSERT INTO tblC VALUES(8, 80);
+    INSERT INTO tblC VALUES(9, 90);
+
+8. 데이터 무결성(integrity)
+    1) What? , How?
+        - 실체(Entity) 무결성 : table을 깨끗하게 지킨다?!
+                데이터의 중복 방지
+                PRIMARY KEY, UNIQUE <-제약, Constraint
+
+        - 영역(Domain) 무결성
+                CHECK (Mysql에는 없음)
+
+        - 참조(Reference) 무결성: cf) 참조하는..(=자식)  참조당하는..(=부모)
+                FOREIGN KEY
+
+    2) 컬럼의 속성 
+        - NN(Not Null) : Null 값이 들어오지 않게끔 지키는 역할
+                PRIMARY KEY
+                not null
+        - ND(Not Duplicate):
+                PRIMARY KEY
+                UNIQUE
+        - NC(Change)
+                FOREIGN KEY
+------------------------------------------------------------------------------------------
+CREATE TABLE tblExam(
+        id        int,
+        name      varchar(10)
+);
+
+INSERT INTO tblExam(id) VALUES(1);
+INSERT INTO tblExam(id) VALUES(1);
+
+-- PRIMARY KEY  (ALTER 문법이용)
+        *. 한 테이블 당 한 개만 소유
+        *. 여러 개의 칼럼을 하나로 묶을 수 있다.
+--------------------------
+DELETE FROM tblExam;
+ALTER TABLE tblExam ADD CONSTRAINT pk_id PRIMARY KEY(id);
+INSERT INTO tblExam(id) VALUES(1);
+INSERT INTO tblExam(id) VALUES(1);  --Dupllicate 안됌.
+
+INSERT INTO tblExam(name) VALUES('홍길동'); -- null값 들어가는 것도 PRIMARY KEY가 막아준다?! (NN)
+
+DROP TABLE tblExam;
+
+CREATE TABLE tblExam(
+        id        int        PRIMARY KEY,
+        name      varchar(10)
+);
+
+DROP TABLE tblExam;
+
+CREATE TABLE tblExam(
+        id        int,
+        name      varchar(10),
+        CONSTRAINT pk_id PRIMARY KEY(id)
+);
+
+DROP TABLE tblExam;
+
+CREATE TABLE tblExam(
+        id        int        PRIMARY KEY,
+        name      varchar(10)
+);
+
+
+
+DROP TABLE tblExam;
+
+CREATE TABLE tblExam(
+        id        int,
+        name      varchar(10),
+        CONSTRAINT pk_id PRIMARY KEY(id)
+);
+
+-- # 여러필드를 묶어서 하나의 PRIMARY KEY로 쓸 수도 있음.
+
+DROP TABLE tblExam;
+
+CREATE TABLE tblExam(
+        id        int,
+        name      varchar(10),
+        CONSTRAINT pk_id PRIMARY KEY(id, name)
+);
+
+** DD(Data Dictionary)  -- 밑의 명령어로 확인하지말고 TOOL로 확인하기..
+# DESC 'DB명'.table_constraints
+DESC information_schema.table_constraints;
+SELECT table_name, constraint_name FROM information_schema.table_constraints;
+
+DROP TABLE tblExam;
+
+CREATE TABLE tblExam(
+        id        int          not null,
+        name      varchar(10)  not null,
+        CONSTRAINT pk_id PRIMARY KEY(id, name)
+);
+
+DROP TABLE tblExam;
+
+CREATE TABLE tblExam(
+        id        int          not null,
+        name      varchar(10)  not null
+);
+
+ALTER TABLE tblExam MODIFY name varchar(10) null;
+ALTER TABLE tblExam ADD age int null;
+
+DROP TABLE tblExam;
+
+CREATE TABLE tblExam(
+        id        int,
+        name      varchar(10),
+        age       int
+);
+
+ALTER TABLE tblExam ADD CONSTRAINT uk_id UNIQUE(id);  --uk:유니크????
+ALTER TABLE tblExam ADD CONSTRAINT uk_name UNIQUE(name);
+
+-- UNIQUE는 Column의 ND속성을 지켜준다. NN속성은 지키지 못한다.(null값 못막음, null의 중복도 못막음<-null을 스칼라로 처리하지 못해서)
+
+INSERT INTO tblExam(id, name, age) VALUES(1, '홍길동', 20);
+INSERT INTO tblExam(id, name, age) VALUES(1, '임꺽정', 20);
+INSERT INTO tblExam(id, name, age) VALUES(2, '홍길동', 20);
+
+INSERT INTO tblExam(id, name, age) VALUES(null, '임꺽정', 20);
+INSERT INTO tblExam(id, name, age) VALUES(null, 'scott', 20);
+
+/*
+    1. NN : default
+    2. ND : auto_increment <- 이걸 통해서 ND속성이 해결된다.
+*/
+
+DROP TABLE tblExam;
+
+CREATE TABLE tblExam(
+        id        int        auto_increment,
+        name      varchar(10) default 'no name',
+        age       int        default 20,
+        CONSTRAINT uk_id UNIQUE(id)               # 제약key defined
+);
+
+INSERT INTO tblExam(name, age) VALUES('scott', 20);
+INSERT INTO tblExam(age) VALUES(50);
+INSERT INTO tblExam(name) VALUES('miller');
+
+--FOREIGN KEY(외래,참조키)
+--------------------------
+CREATE TABLE tbldept(
+        deptno    int,
+        dname     varchar(10)
+);
+
+INSERT INTO tbldept VALUES(100, 'SALES');
+INSERT INTO tbldept VALUES(101, 'MARKETING');
+INSERT INTO tbldept VALUES(102, 'RESEARCH');
+
+CREATE TABLE tblemp(
+        empno    int,
+        ename    varchar(20),
+        hiredate    datetime,
+        deptno   int
+);
+
+--기본키 설정이 선행되어야 FOREIGN KEY 사용가능
+ALTER TABLE tbldept ADD CONSTRAINT pk_deptno PRIMARY KEY(deptno);
+
+ALTER TABLE tblemp ADD CONSTRAINT fk_deptno FOREIGN KEY(deptno) REFERENCES tbldept(deptno);   --참조키사용하려면 신뢰성(무결성)이 있어야함
+
+INSERT INTO tblemp(empno, ename, hiredate, deptno) VALUES(1, 'scott', now(), 103);  --없는 부서코드이니 오류나야함. (FOREIGN KEY 설정필요)
+INSERT INTO tblemp(empno, ename, hiredate, deptno) VALUES(1, 'scott', now(), 102);
+-- 이제 102란 컬럼값은 변경할 수 없음(NC속성)
+
+UPDATE tbldept SET deptno=1002 WHERE deptno=102;  --변경 불가능(NC속성)
+DROP TABLE tbldept; -- 또한 불가능(NC속성), FOREIGN KEY를 삭제 후에 진행해야 가능
+
+-- 사용자가 DB를 사용할 수 있는 program을 생성시켜야 함 (파이썬으로 프로그램 생성)
+   무결성 처리도 program에서 처리할 수 있음(db와 연결)
+
+9. VIEW 설계(p.263)
+    1) 가상 테이블
+    2) 정의 : 실제 테이블을 여러 관점에서 투영한 가상 테이블
+    3) 이유
+        - 사용자에게 편리한 접근을 제공(편의제공)
+        - 컬럼 단위의 보안 관리를 위해서
+        - 개발자보다는 관리자가 관리의 목적으로 쓰기위해
+    4) 문법
+        CREATE VIEW 뷰이름
+        AS 
+        SELECT문
+
+    5) 주의할 점
+        DML 작업(insert, update, delete)
+--------------------------------------------------------------------------------------
+        DROP VIEW vw30;
+
+        CREATE VIEW vw30
+        AS
+        SELECT ename, sal, job
+        FROM scott_emp
+        WHERE deptno = 30;
+
+        SELECT * FROM vw30;
+
+        INSERT INTO vw30 VALUES('john', 2500, 'SALES');   # view 추가 (colmn명을 생략하고? insert했을떄)
+        -> error: default value가 없는 테이블임. empno=Not null (반드시 empno를 기재하여 추가해야함!)
+        ------------------------------------------------------------------------------------------------
+        --empno 추가
+        DROP VIEW vw30;
+
+        CREATE VIEW vw30
+        AS
+        SELECT empno, ename, sal, job
+        FROM scott_emp
+        WHERE deptno = 30;
+
+        SELECT * FROM vw30;
+
+        INSERT INTO vw30 VALUES(1, 'john', 2500, 'SALESMAN');  --vw30에서는 볼 수 없음!(vw30조건:부서코드30으로 제한) scott_emp에서 확인가능
+
+10. 인덱스(index) p.250
+    1) 작성 방법
+        - CREATE INDEX 인덱스 이름 ON 테이블명(필드명, ...)
+        - 제약을 통해 생성
+------------------------------------------------------------
+CREATE TABLE tblIndex(
+        id        int,
+        name      varchar(10),
+        point     float
+);
+
+INSERT INTO tblIndex VALUES(5, 'scott', 9.8);
+INSERT INTO tblIndex VALUES(2, 'adam', 4.2);
+INSERT INTO tblIndex VALUES(7, 'john', 6.7);
+INSERT INTO tblIndex VALUES(1, 'tom', 5);
+
+CREATE INDEX idx_point ON tblIndex(point);
+
+SELECT * FROM tblIndex WHERE point>=4;
+
+EXPLAIN SELECT * FROM tblIndex WHERE point>=4;
+EXPLAIN SELECT * FROM tblIndex WHERE id>=4;
+
+DROP INDEX idx_point in tblindex;
+ALTER TABLE tblIndex ADD CONSTRAINT pk_id PRIMARY KEY(id);
+
+
+11. Transaction
+    "All Or Nothing"
+    rollback
+    commit - 이 작업을 완료하면 rollback으로 되돌릴 수가 없음.
+
+    SELECT @@autocommit;    --@@: 전역변수(어디에서나 사용가능 의미)
+    set @@autocommit = false;  <- 자동커밋을 끄기위한 작업? 트랜잭션을 사용해서 데이터를 추가할 떄는 자동커밋을 꺼야한다.
+
+    delete from tblIndex;
+
+    DML작업만 기록(insert, update, delete)
+
+    동기화 작업 수행(한번에 하나씩만 작업한다.)
+
+    ACID
+        - ATOMICITY(원자성)
+        - CONSISTENCY(일관성)
+        - ISOLATION(고립성)
+        - DURABILITY(지속성)
+
+12. DB 설계(모델링)
+  
+    Waterfall
+    ------------------------
+    요구사항 수집 - 요구사항 분석(ERD: 개념적 설계) - 논리적 설계 - 물리적 설계
+    - 코딩  - 테스트 - 배포 - 유지보수  (Waterfall방식)
+
+    애자일(asile) 방식 
+    ------------------------
+    XP -> TDD
+
+    정규화(p.319)
+    -------------
+    1. 제 1정규화 : 속성값은 반드시 원자값이어야 한다. (*하나의 셀에 하나의 값만 저장할 수 있다/)
+    2. 제 2정규화 : 키가 아닌 모든 컬럼은 기본키 전체에 의존적이어야 한다.  --기본키가 여러개로 묶여있을때
+                   *기본키의 일부분에 의존적이어서는 안된다.
+    3. 제 3정규화 : 키가 아닌 컬럼은 다른 키가 아닌 컬럼에 의존적이어서는 안된다.
+
+    설계툴
+    --------------
+    ER-WIN, Ex-ERD, ...

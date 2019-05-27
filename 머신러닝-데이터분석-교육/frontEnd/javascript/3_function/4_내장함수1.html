@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        function fnConfirm(){
+            var result = confirm("당신의 선택은");     //사용자로부터 예/아니오 confirm을 받을 수 있는 기능. 말그대로 confirm
+            if(result == true)
+                alert("확인을 선택하였습니다.")
+            else
+                alert("취소를 선택하였습니다.")
+        }
+
+        function fnPrompt(){
+            var result = prompt("당신의 이름은");
+            if(result != '' && result != null)      //작대기2개:OR연산자? and일땐 &&
+                alert("당신의 이름은" + result + "입니다.");
+        }
+
+        function fnEval(){
+            var v1 = "50 * 2 + 3";
+            alert(eval(v1))
+
+            var v2 = "alert('안녕');document.write('hello')";
+            eval(v2)
+        }
+
+        function fnParse(){
+            alert(parseInt("33") + parseInt("22"));
+            alert(parseInt("33abc"));  //abc는 수자가 될 수가 없어서 결과값안나옴? 버림?
+            alert(parseFloat("3.14*" + "*"))
+        }
+
+        function fnFinite(){
+            console.log(isFinite(12345));
+            console.log(isFinite("12345"));
+            console.log(isFinite("일반 문자열"))   //false나옴.
+        }
+
+        function fnNaN(){    //숫자가아니냐? 라고 물어보는것
+            console.log(isNaN(12345));  //숫자라서 false
+            console.log(isNaN("12345"));  //문자열로 해도 false, 자동 형변환이 됌...숫자라고 봄
+            console.log(isNaN("문자열"))
+        }
+
+        function fnEscape(){
+            console.log(escape("홍길동"));   //%uD64D%uAE38%uB3D9 : u는 유니코드, 인코딩한다고 생각?
+            console.log(escape("홍 길동")); //%uD64D%20%uAE38%uB3D9 : %20=공백
+            console.log(escape("korea"));   //ascii코드 포함
+            console.log(escape("12345"));   //ascii코드 포함
+            console.log(escape("#$%^ "));    //ascii코드 미포함->유니코드로 변환됌
+            console.log(escape("@+-_+*./"));    //ascii코드 포함
+            console.log(unescape("%uD64D%uAE38%uB3D9"));
+         }
+    </script>
+</head>
+<body>
+    <input type="button" value="confirm" onclick="fnConfirm()" /><br><br>
+    <input type="button" value="prompt" onclick="fnPrompt()" /><br><br>
+    <input type="button" value="eval" onclick="fnEval()" /><br><br>
+    <input type="button" value="parse" onclick="fnParse()" /><br><br>
+    <input type="button" value="Finite" onclick="fnFinite()" /><br><br>
+    <input type="button" value="NaN" onclick="fnNaN()" /><br><br>
+    <input type="button" value="escape" onclick="fnEscape()" /><br><br>
+</body>
+</html>

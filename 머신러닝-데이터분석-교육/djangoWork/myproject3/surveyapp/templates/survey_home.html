@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        function fnShowResult(){
+            location.href = "show_result?survey_idx={{dto.survey_idx}}"
+
+        }
+    </script>
+</head>
+<body>
+    <h2>온라인 설문조사</h2>
+    <form action="save_survey" method="post">
+        <input type="hidden" name="idx" value="{{dto.survey_idx}}" />
+        <b>{{dto.question}}</b><br><br>    <!--question은 admin에서 설정한 것!-->
+        <input type="radio" name="num" value="1">{{dto.ans1}}<br>   <!--ans도 admin에서 설정했음 -->
+        <input type="radio" name="num" value="2">{{dto.ans2}}<br>
+        <input type="radio" name="num" value="3">{{dto.ans3}}<br>
+        <input type="radio" name="num" value="4">{{dto.ans4}}<br>
+        <input type="submit" value="투표" />
+        <input type="button" value="결과 확인" onclick="fnShowResult()"/>
+    </form>
+</body>
+</html>

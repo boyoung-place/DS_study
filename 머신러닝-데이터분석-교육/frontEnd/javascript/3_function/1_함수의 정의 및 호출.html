@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        function func1(){
+            window.alert("첫번째 함수입니다.");
+        }
+        function func2(){
+            window.alert("두번째 함수입니다.");
+        }
+        function func3(){
+            window.alert("세번째 함수입니다.");
+        }
+    </script>
+</head>
+<body onload="func1()">  <!--이벤트가 발생했을때 실행 -->
+    <input type="button" value="두번째 함수 호출" onclick="func2()" />  <!--이벤트 발생 -->
+    <script>
+        func3();
+    </script>
+</body>
+</html>

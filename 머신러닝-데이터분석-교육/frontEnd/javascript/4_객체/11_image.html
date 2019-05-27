@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+</head>
+<body>
+    <img src="../images/Lighthouse.jpg" name="img1" width="300" height="400"/>
+    <img src="../images/Tulips.jpg" name="img2" width="300" height="400"/>
+    <br><br>
+    <script>
+        with(document){
+            write("이름 : " + img1.name + "<br>");
+            write("이름 : " + images[0].name + "<br>");
+            write("폭 : " + images[0].width + "<br>");
+            write("높이 : " + images[0].height + "<br>");
+
+            images[1].width = 500;
+            write("이미지 갯수 : " + images.length + "개");
+        }
+    </script>
+</body>
+</html>

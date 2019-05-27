@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        function fnDown(){
+            var e = window.event;
+            //alert(e.clientX + ", " + e.clientY);  // 어느 위치에서 클릭했는지 (x,y)좌표로 보여줌
+
+            if(e.button == 0)              // 마우스 버튼 판별(0:왼쪽 1:가운데 2:오른쪽)  *cf) 가급적이면 오른쪽 버튼은 따로 기능을 만들지 말 것
+                alert("왼쪽 버튼");
+            else if(e.button == 1)
+                alert("가운데 버튼");
+            else
+                alert("오른쪽 버튼");
+        }
+
+        window.onload = function(){
+            var cell = document.getElementById("cell");
+            cell.addEventListener("mousedown", fnDown, false);
+
+        }
+    </script>
+</head>
+<body>
+    <div id="cell" style="background-color:#AAAAAA; width:400px; height:300px"></div>
+</body>
+</html>

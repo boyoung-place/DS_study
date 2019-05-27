@@ -1,0 +1,20 @@
+SQLite
+=========
+-특징: 관계형DB를 쓴다. 가볍다! 모바일에서 많이 활용
+1. http://sqlite.org
+2. 특징
+    1) 파일 기반의 DBMS, 저메모리, 빠른 처리속도
+    2) 오픈 소스
+    3) 별도의 DB서버가 없어도 쉽고 편리하게 사용할 수 있는 Embeded SQL DB엔진(쉽게말해,LocalDB)
+    4) 안드로이드, 아이폰 등의 스마트폰에 내장된 DB
+    5) 표준 SQL 지원
+
+3. 지원하지 않는 기능
+    1) Right and Full outer join : Left outer join만 지원
+    2) 읽기 전용 뷰만 제공
+
+4. 클라이언트 툴
+    http://www.sqliteexpert.com
+
+    -New In-memory database: 메모리에만 저장되어 쓰다가 pc power off되면 data도 사라짐, 일시적 DB (but 빠른속도)
+    -NVARCHAR = UNI코드로 저장가능 (한글자를 2byte씩 처리) / VARCHAR (한글자를 1byte씩 처리)

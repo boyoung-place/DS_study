@@ -1,0 +1,32 @@
+<!DOCTYPE html>   <!--디자인 변경? -->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        var count = 0;    // 추가버튼을 누를때마다 1씩 증가하는 전역변수
+        function fnAppendItem(){
+            count++;
+            var newItem = document.createElement("div"); //태그 새로만들기. 실제 메모리에 <div></div>만들어짐
+            newItem.setAttribute("id", "item" + count);    // <div id ='item1'></div>
+
+            //<div id = "item1">새로 추가된 아이템[1]</div>
+            newItem.innerHTML = "새로 추가된 아이템[" + count +  "] "+
+               "<input type='button' value='삭제' onclick='fnDeleteItem(" + count + ")' />";
+
+            var itemList = document.getElementById("itemList");
+            itemList.appendChild(newItem);
+         }
+
+         function fnDeleteItem(cnt){
+             var item = document.getElementById("item" + cnt);
+             item.parentNode.removeChild(item); // 자기자신 삭제 불가 -> 전체삭제??
+
+         }
+    </script>
+</head>
+<body>
+    <input type="button" value="추가" onclick="fnAppendItem()"/>
+    <div id="itemList"></div>
+</body>
+</html>

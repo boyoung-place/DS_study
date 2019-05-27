@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form>
+    <!-- 문자열 입력 -->
+    <input type="text" /><br>
+    <input type="text" size="30" maxlength="25"/><br>
+    <input type="text" value="홍길동" disabled="disabled"/><br>  <!-- 값자체가 아예 서버로 전달 X -->
+    <input type="text" value="홍길동" readonly="readonly""/><br> <!-- 값 자체가 서버로 전달은 됌 -->
+    <input type="password" /><br>
+    <textarea rows="5" cols="30"></textarea>
+    <hr>
+
+    <!-- 선택에 따른 입력 -->
+    <input type="radio" name="r1" checked="checked"/>첫번째 라디오<br>  <!-- 이름이 다르면 중복선택 된다(r1) -->
+    <input type="radio" name="r1" />두번째 라디오<br>
+    <br>
+    <input type="checkbox" name="c1" checked="checked"/>첫번째 체크박스<br>  <!-- 얘는 이름 같게해도 중복선택 가능 -->
+    <input type="checkbox" name="c1" />두번째 체크박스<br>
+    <input type="checkbox" name="c1" />세번째 체크박스<br>
+    <br>
+    <select>
+        <option>서울</option>
+        <option>인천</option>
+        <option>수원</option>
+        <option selected="selected">경기</option>
+    </select>
+    <br>
+    <select size="4" multiple="multiple">
+        <option>서울</option>
+        <option>인천</option>
+        <option>수원</option>
+        <option selected="selected">경기</option>
+    </select>
+    <hr>
+    <!-- 버튼 관련 -->
+    <input type="button" value="일반 버튼" /><br><br>
+    <button>일반버튼</button><br>
+    <input type="image" src="images/duke_thinking.gif" /><br><br>
+    <input type="submit" value="전송" /><br><br>    <!-- submit: 지금까지 입력한 것을 서버로 전송 -->
+    <input type="reset" value="취소">  <!-- 입력이나 선택한게 다 없어짐=초기상태로돌아감 -->
+    <hr>
+    <!-- 기타-->
+    <input type="file" /><br><br>
+    <input type="hidden" name="id" value="scott" />  <!-- 서버에 데이터 몰래 전송하기 -->
+    <br><br>
+    <hr>
+    <!-- HTML5 추가 -->
+    <input type="datetime" /><br><br>
+    <input type="week" /><br><br>
+    <input type="month" /><br><br>
+    <input type="date" /><br><br>
+    <input type="time" /><br><br>
+    <input type="datetime-local" /><br><br>
+
+    <input type="email" /><br><br>
+    <input type="url" /><br><br>
+
+    <input type="color" /><br><br>
+
+    <input type="number" min="1" max="100" /><br><br>
+
+    <input type="range" min="0" max="100" step="10" value="0" /><br><br>
+
+    <input type="tel" /><br><br>
+
+    <input type="file" accpet="image/*" multiple /><br><br>
+
+    <input type="text" placeholder="여기에 Email을 적어주세요" /><br><br>
+    <input type="text" autofocus/><br><br>
+</form>
+</body>
+</html>

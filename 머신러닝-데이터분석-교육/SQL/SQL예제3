@@ -1,0 +1,24 @@
+SQL예제3
+가) TABLE NAME : POST
+CREATE TABLE POST(
+     post1    char(3),
+     post2    char(3),
+     ADDR     varchar(60)    not null
+);
+ALTER TABLE POST ADD CONSTRAINT pk_post1 PRIMARY KEY(post1, post2);
+
+나) TABLE NAME : MEMBER
+CREATE TABLE MEMBER(
+        id          int(4),
+        name        varchar(10)        not null,
+        sex         char(1),
+        jumin1      char(6),
+        jumin2      char(7),
+        tel         varchar(15),
+        post1       char(3),
+        post2       char(3),
+        addr        varchar(60)
+);
+ALTER TABLE MEMBER ADD CONSTRAINT pk_id PRIMARY KEY(id);
+ALTER TABLE MEMBER ADD CONSTRAINT uk_jumin UNIQUE(jumin1,jumin2);
+ALTER TABLE MEMBER ADD CONSTRAINT fk_POST FOREIGN KEY(POST1,POST2) REFERENCES POST(POST1, POST2);

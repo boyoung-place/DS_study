@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="jquery-3.3.0.min.js"></script>
+    <script>
+        $(document).ready(
+              function(){
+                  $("div:eq(1)")
+                      .siblings().css("border", "1px solid silver")   // 본인을 제외한 나머지 형제들에게 적용
+                      .end()    // 다시 div로 돌아감(back한 것)
+                      .next().text("third")
+                      .end()    // 다시 div로 돌아감(back한 것)
+                      .nextAll().css("background", "yellow")
+
+                  //$("div").filter("p").css("color", "blue");   // 적용안될 것임 말이 안되는 지시시
+                  $("div").find("p").css("color", "blue")
+                      .add("span").css("border", "1px solid red")   // span은 text color blue에 영향을 받지 않는다  (**중요**)
+              }
+       );
+
+    </script>
+    <style>
+        div{
+            width:60px; height:60px; margin:10px; float:left; border:2px solid blue
+        }
+
+    </style>
+</head>
+<body>
+    <div>A
+        <p>p a</p>
+    </div>
+    <div>B
+        <p>p b</p>
+    </div>
+    <div>C
+        <p>p c</p>
+    </div>
+    <div>D<br>
+        <span>span d</span>
+    </div>
+    <div>E<br>
+        <span>span e</span>
+    </div>
+</body>
+</html>

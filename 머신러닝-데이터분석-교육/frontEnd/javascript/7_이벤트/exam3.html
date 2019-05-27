@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        function fnOver(){
+            var target = window.event.target;
+            target.style.background = "#550000";    //마우스를 올리면 색이 바뀜!
+        }
+
+        function fnOut(){
+            var target = window.event.target;
+            target.style.background = "#FFFFFF";   //마우스를 치우면 색이 바뀜!
+        }
+
+        function fnClick(){
+            var target = window.event.target;
+            alert(target.id + "에서 클릭됨...");
+        }
+
+        window.onload = function(){
+            var cell = document.getElementById("cell");
+            cell.addEventListener("mouseover", fnOver, false);
+            cell.addEventListener("mouseout", fnOut, false);
+            cell.addEventListener("click", fnClick, false);
+        }
+    </script>
+</head>
+<body>
+    <span id="cell">마우스 이벤트</span>   <!--마우스를 올렸을 때 & 마우스 치웠을 때 등등 발생되는 events -->
+</body>
+</html>

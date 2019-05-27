@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="jquery-3.3.0.min.js"></script>
+    <script>
+        /*
+        $(document).ready(
+              function(){
+              //var $sports = $("input:checkbox")     //jQuery 변수 생성  앞에$ 붙이면 아! 이건 jQuery객체를 받은거구나! 하고 알 수 있음(관례)
+              //$sports.css(...);
+
+
+              $("#Doit").click(        // id를 쓸땐 # ?
+                  function(){
+                      var $sports = $("input:checkbox")
+                      var result = "";
+
+                      for(var i=0; i<$sports.length; i++){
+                          if($sports[i].checked == true){
+                              result += $($sports[i]).next().text() + ", ";    //label에서 문자 뽑아와라
+                          }
+                      }
+
+                      $("#result").text(result);
+                  }
+              );
+              }
+        */
+
+              $("#Doit").click(        // id를 쓸땐 # ?
+                    function(){
+                        var result = "";
+
+                        $("input:checked").each(
+                            function(){
+                                result += $(this).next().next() + ", ";
+                            }
+                        );
+                        $("#result").text(result);
+                    }
+              );
+          }
+       );
+    </script>
+</head>
+<body>
+    <p>
+        스포츠<br>
+        <input type="checkbox" id="c1"/><label for="c1">농구</label>    <!--글자를 눌러도 체크박스에 선택이 되게 하는 기능 = for~ -->
+        <input type="checkbox" id="c2"/><label for="c2">배구</label>
+        <input type="checkbox" id="c3"/><label for="c3">야구</label>
+        <input type="checkbox" id="c4"/><label for="c4">축구</label>
+    </p>
+    <p>
+        <input type="button" id="Doit" value="선택"/>
+    </p>
+    <p>
+        당신이 선택한 스포츠는 <span id="result"></span> 입니다.
+    </p>
+</body>
+</html>

@@ -1,0 +1,315 @@
+Javascript
+=================
+1. 스크립트 언어: 가볍다. 제한된 목적, 장소에서 사용가능.  따옴표 구분없음(짝만 맞춰주면 된다)
+    perl, vbscript  cf) netscape
+2. 객체기반언어 : 객체지향언어는 아님! 객체언어의 특성? 일부분?을 가지고 있음
+3. 사용방법
+    (1) inline style  <- 즁요??!!
+        -태그 안에서 작성
+        -태그 안의 이벤트 속성에서 작성 가능
+        -이벤트 속성: onclick, onchange, onmouseover, onmouseout, ...
+    (2) internal style
+        -페이지 내에서 작성
+        -<script>사용
+    (3) externel style   (css와 유사)
+        -별도의 파일로 작성(.js)
+
+4. 문법
+        1)제어문
+            if(조건식){
+                문장;
+                ...
+            }
+
+            if(조건식){
+                문장;
+                ...
+            }
+
+            else{
+                문장;
+                ...
+            }
+
+
+
+            if(조건식){
+                ...
+            }
+
+            else if(조건식){
+                ...
+            }
+
+            else if(조건식){
+               ...
+            }
+
+            else{
+                ...
+            }
+     ---------------------------------------------
+
+            switch(변수){
+                case값;     # ~~일 경우(case) 같냐..라는 조건식뿐임.
+                  문장;
+                  break;
+                case값;
+                  문장;
+                  break;
+                ...
+            }
+    ==========================================================
+        2) 반복문
+            while(조건식){
+                문장;
+                ...
+
+            }
+            ------------------------
+            do{
+                문장
+                ...
+            }while(조건식);
+            -------------------------------
+            for(초기화; 조건식; 증감){
+                문장;
+                ...
+            }
+
+            초기화
+            for(; 조건식; 증감)
+                문장
+
+            초기화
+            for(; 조건식; ){   <- 증감 따로 처리
+                증감
+            }
+
+            초기화
+            for( ; ; ){
+                조건식
+                증감
+            }
+        ================================================================
+        3) 메서드(함수)
+            function 함수명(...){
+                코드
+                ...
+            }
+        ================================================================
+        4) 내장함수
+            - 메시지 관련 함수
+                window.alert(), window.confirm(), window.prompt()  윈도우객체는 생략할 수 있다?
+
+            - 변환 함수
+                eval() : 자바스크립트에 맞게 형식에 맞춰주는 것..?
+                parseint(), parseFloat() : 공장율 
+                Number(), String()
+            - 그외
+                isFinite()
+                isNan() : Not a number
+                escape(), unescape()
+                    알파벳과 숫자 및 * @ - _ + . / 를 제외한 문자를 모두 16진수로 바꾸어 주거나 다시 원상태로 복구 
+                    (url에서 많이 발생?  예. 주소값에서 '공백'->%20이라는 16진수로 변환)
+        ============================================================================================================
+        5) 객체
+            - Array (배열을 쉽게 다룰수있게함)
+                length
+                concat(), join(), reverse(), sort(), slice(), ...
+
+            - Date
+                getFullYear(), getMonth(), getDate(), getDay(), getHours(), getMinutes(),
+                getSeconds(), getTime(), ...
+
+            - Math
+                pow(), ceil(), floor(), round(), abs(), random(), ...
+
+            - String
+                anchor(), bold(), fontcolor(), fontsize(), italics(), link(),....
+                toLowerCase(), toUpperCase(), charAt(), concat(), indexOf(), split(), subtr(),...
+                
+                sub() : 밑글자로 나타내기
+                indexOf() 과 lastIndexOf() 의 차이는?
+
+            - Screen
+                하드웨어 정보를 가져옴. 해상도, 크기 등...
+                반응형 웹디자인이라고 많이 불려졌음. 요즈음은 안씀.. old
+
+            - 객체와 함께 스면 편리한 문법
+                for~in <- 파이썬 문법과 동일
+                with
+        =============================================================================================================
+        6) BOM (browser object Model) 브라우저에서 제공하는 객체 모델
+            - window
+                status, closed, defaultStatus, opener, name,....
+                open() //<-팝업창같은데에 쓰인다, close(), moveTo(), resizeBy(), scrollTo(), alert(), confirm(),
+                prompt(), print(), focus(), blur(), setTimeout() //<-시간정하고 작업지정하면 그때 딱 한번되고 끝남(일회성), setinterval()<-반복, clearTimeout(),...
+
+            - location
+                hash, host, hostname, href, pathname, port, protocol, search, ...
+                reload(), replace(), ....
+
+            - history
+                history.back() <-뒤로가기  뭐.. 이거외엔 쓸 기능이 별로 없음
+
+            - navigator
+                웹브라우저 정보를 알려준다.
+                appCodeName, appName, appVersion, userAgent, platform,....
+                JavaEnable(), ....
+
+            - image
+                border, complete, height, width, hspace, vspace, length, lowsrc(<-저용량의 이미지로 바꾸기), name, src, ...
+                onabort() <-이미지다운받다가 취소하는 기능, onerror(), onload(), ...
+
+        7) DOM(Document Object Model) - 웹크롤링할때 많이 씀
+            - www.w3c.org/DOM
+            - 정의
+                문서(대부분 markup language를 일컬음)를 객체로 표현하기 위한 표준
+                이 때의 문서는 Markup Language를 의미
+                자바스크립트, 자바, C, C++, C# 등 다양한 언어에서 DOM API를 지원
+
+            - DOM API(Node < Document,  Element)   DTO패턴?? 패쓰,.
+                *. Node : DOM에서 표현되는 모든 것
+                    주요 프로퍼티
+                    ----------------------
+                    nodeName         String
+                    nodeValue        String
+                    nodeType         unsigned short
+                    parentNode       Node
+                    childNodes       NodeList    (childnodes다 불러와서 배열정리?한 다음  node찾기)
+                    firstChild       Node
+                    lastChild        Node
+                    previousSibling  Node
+                    nextSibling      Node        (그다음에 있는 형제노드에 접근..이럴때 사용)
+                    ownerDocument    Document
+
+                nodeType      nodeName     nodeValue
+                ---------------------------------------
+                Document      #document      null
+                Element       태그명          null
+                Text          #text          문자열   (<-단말노드?)
+
+                nodeType
+                ---------
+                    ELEMENT_NODE     1
+                    ATTRIBUTE_NODE   2
+                    TEXT_NODE        3
+                    ...
+                    DOCUMENT_NODE    9
+
+                *. document
+                    문서 전체를 나타내는 인터페이스
+                    node인터페이스를 상속받는다.
+                    추가된 property
+                        documentElement        Element
+                    메서드
+                        getElementById()          Element    (공백이 있든없든 내가 원하는 부분을 뽑..아? 옴 처음node, lastnode이런거 신경 x)
+                        getElenmentsByTagName()   NodeList   (태그이름으로 접근하여 사용 가능, 집합자료형)
+
+                        NodeList : item(), length()
+
+                *. Element
+                    태그를 나타내는 인터페이스
+                    tagName
+                    getAttribute()
+                    setAttribute()
+                    removeAttribute()
+
+            - 문서 구조 변경
+                document에서 element 생성 (없던 디자인?을 만들기)
+                    createElement(태그명)        Element
+                    createTextNode(문자열)       Text
+
+                Node의 DOM트리 변경 관련 메서드  (새로만든 tag를 어디에 끼워넣을 것인가)
+                    insertBefore(추가될 노드, 현재 노드)        Node
+                    replaceChild(교체할 노드, 현재 노드)        Node
+                    removeChild(제거할 노드)                   Node
+                    appendChild(새로 추가할 노드)               Node
+        ====================================================================================================
+
+        8) 사용자 정의 객체 (class를 만들겠다는 의미)
+            - class 생성                     //함수랑 동일하게 function을 씀, 그래서 함수랑 헷갈림
+                클래스명 = function(...){
+                    this.인스턴스변수 = 값    // 파이썬에서의 self와 동일한 의미의 this
+                }
+
+            - 메서드 생성
+                클래스명.prototype.메서드명 = function(...){
+
+                }
+
+            - Object를 이용한 클래스 만들기  // 클래스를 잠깐 만들고 사용하고 버릴 때 쓰는 방법. 보통은 위의 'class 생성' 방법으로 쓴다.
+                var Book = new Object();
+                Book.title = "노인과 바다"
+                Book.author = "헤밍웨이" 
+                Book.setValue = function(title, author){
+                    this.title = title;
+                    this.author = author;
+                }
+                Book.setValue("노인과 산", "헤밍웨이")
+
+            - 패키지 만들기
+                kr = {}       // kr = new Object()
+                kr.co = {}    // kr.co = new Object()
+                kr.co.Book = function(...){     // Book 클래스는 kr폴더의 co폴더 안의 패키지로서 사용가능하게 됌
+
+                }
+
+        ========================================================================================================================
+        9) 이벤트
+            - 이벤트 종류
+                onclick (눌렀다 떼어냈을 때 실행)
+                onblur
+                onfocus
+                onmouseover
+                onmouseout
+                onselect
+                onsubmit
+                onreset
+                onload
+                onunload
+                onabort
+                onerror
+                ondbclick
+                ondragdrop
+                onkeydown
+                onkeyup
+                onmousedown (눌렀을 떄 실행)
+                onmouseup
+                onmove
+                onresize
+                ....
+
+            - 이벤트 리스너 방식의 함수
+                addEventListener(이벤트 타입, 이벤트 핸들러, 캡쳐타입)
+                removeEventListener(이벤트 타입, 이벤트 핸들러, 캡쳐타입)
+
+            - 마우스 버튼 판별
+                W3C 표준
+                --------
+                0 : 일반 버튼(주로 왼쪽 버튼)
+                1 : 추가 버튼(주로 가운데 버튼, 휠)
+                2 : 컨텍스트-일종의 menu라고 생각하기- 버튼(주로 오른쪽 버튼)
+                
+                
+                구 IE
+                ------
+                1 : 왼쪽
+                2, 0 : 오른쪽
+                4 : 가운데
+                // 지금은 신경쓸 필요 없음!
+
+            - 이벤트 흐름
+                3단계
+                    캡쳐 단계(Capturing) : 이벤트 발생 대상까지 전달되는 단계 (버블링과 반대방향으로 진행)
+                    대상 단계(Targeting) : 실제 이벤트가 발생 대상에 도착한 단계
+                    버블링 단계(Bubbling) : 발생 대상에서 다시 document까지 전달되는 단계
+
+                Capturing 중지
+                    addEventListener(이벤트, 핸들러, false);
+
+                Bubbling 중지
+                    stopPropagation();
+
+

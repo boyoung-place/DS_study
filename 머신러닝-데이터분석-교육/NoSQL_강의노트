@@ -1,0 +1,208 @@
+NoSQL
+
+정해지지 않은 데이터들. 어떤 데이터들을 들어오게 할 것인지 미리 정해지지가 않음.
+관계형DB의 단점을 보완하기 위해 NoSQL이 나옴
+
+-MongoDB : Document Database, 관계형과 유사
+           행을 Document라 부르고, 테이블을 Collection이라 부름. (*중요**)
+           _ID FIeld (primary key와 비슷한 용도)
+
+cf) Graph Database : 시각화에 사용
+    BigTable & Document db를 많이 사용, 
+
+cf) JSON(Java Script Object Notation) : 데이터 양 옆에 태그( </tag>데이터</tag>)걸어서 막 설명 쓰지않구 {키:값}으로 간단하게.. 데이터 묶음
+
+MongoDB
+======================
+*몽고DB메뉴열: https://docs.mongodb.com/v3.6/
+======================
+1. 서버 실행
+    mongod : d:/data/db 기본 경로가 준비
+    mongod --dbpath "경로"
+
+2. 클라이언트 접속
+    mongo
+
+3. 기본 명령어
+    1) show dbs
+    2) use DB명 #db가 없을 경우 걍 만들어버림!
+        - DB와 연결
+        - DB 생성
+    3) db : 현재 db조회
+    4) show collections
+    5) db.dropDatabase() : db 삭제
+        삭제할 db로 이동
+
+4. Collection 생성
+# 미리 설계하지 않는다! - NoSQL이니까
+    db.createCollection("이름" [,옵션])
+        - capped : boolean
+                이 값을 true로 설정하면 capped collection을 활성화시킨다.
+                capped collection이란 고정된 크기를 가진 컬렉션으로
+                size가 초과되면 가장 오래된 데이터를 덮어쓴다.
+                이 값을 true로 설정하면 반드시 size옵션도 설정해야 한다.
+
+        - size : number
+                capped collection을 위해 해당 컬렉션의 최대 크기를 byte로 지정
+        - autoIndex : boolean
+                이 값을 true로 설정하면 _ID필드에 index를 자동으로 생성
+                4.x에서는 사용 불가
+        - max : number
+                해당 컬렉션에 추가될 수 있는 최대 갯수를 설정
+
+    db.createCollection("books")
+    db.books.insert({"name":"book1"})
+    db.books.find()
+
+    db.books.insert({"name":"book2", "author":"홍길동"})
+
+    db.books.insert([{"name":"book3", "author":"유비", "price":"10000"},
+                    {"name":"book4", "author":"관우", "price":"20000"},
+                    {"name":"book5", "author":"장비", "price":"30000"}])
+
+    db.books.insert({"name":"book6", "author":"임꺽정", "seller":["교보", "영풍"]})   #값이 여러개일 땐 대괄호..
+
+    db.books.remove({"name":"book1"})   # 삭제할 특정 필드 지정
+
+    db.books.drop()
+
+5. 조회
+    db.articles.insert([
+            {
+                    "title":"article01",
+                    "content":"content01",
+                    "writer":"Velopert",
+                    "likes":0,
+                    "comments":[]
+            },
+            {
+                    "title":"article02",
+                    "content":"content02",
+                    "writer":"Alpha",
+                    "likes":23,
+                    "comments":[{"name":"Bravo", "message":"Hey man!"}]
+            },
+            {
+                    "title":"article03",
+                    "content":"content03",
+                    "writer":"Bravo",
+                    "likes":40,
+                    "comments":[{"name":"Charlie", "message":"Hey man!"},
+                                {"name":"Delta", "message":"Hey man!"}]
+            }
+
+    ])
+
+    db.articles.find()  
+    db.articles.find().pretty()  # 정돈해서 보여줘 라는 의미
+    ------------------------------------------------------------------------------------------------------
+    - writer 값이 "Velopert"인 document 조회
+            db.articles.find({"writer":"Velopert"}).pretty()
+
+    - likes값이 30이하인 document 조회
+            db.articles.find({"likes":{$lte:30}}).pretty()   # lte: less than equal
+
+    - likes값이 10보다 크고 30보다 작은 document 조회(****)
+            db.articles.find({$and:[{"likes":{$gt:10}},{"likes":{$lt:30}}]}).pretty()      
+            # Gt: Greater than   
+            # and 연결해줄 땐 연결하고자하는 범위에 []하고 {$and:}로 다시 덮어줌
+
+            db.articles.find({"likes":{$gt:10, $lt:30}}).pretty()   # and조건 간결문
+
+    - writer값이 "Alpha" 또는 "Bravo"인 document 조회
+            db.articles.find({$or:[{"writer":"Alpha"}, {"writer":"Bravo"}]}).pretty()
+            db.articles.find({"writer":{$in:["Alpha","Bravo"]}}).pretty()  # in: or와 equal? 을 합친 것
+
+    - writer 값이 "Bravo"이거나 likes값이 10미만인 document 조회
+            db.articles.find({$or:[{"writer":"Bravo"}, {"likes":{$lt:10}}]}).pretty()
+
+
+    - javascript 문법을 사용
+            comment가 비어있는 document를 조회
+            db.articles.find({$where:"this.comments.length == 0"}).pretty()    # where: 조건  # this가 파이썬의 어떤역할.. 못들음 ㅠㅠ
+
+    - $elemMatch 연산자
+            comments 중에서 "Charlie"가 작성한 댓글이 있는 document 조회
+            db.articles.find({"comments":{$elemMatch:{"name":"Charlie"}}}).pretty()
+
+    *. find의 활용 : sort(), limit(), skip()
+            db.createCollection("order")
+            db.order.insert(
+            [
+                    { "_id": 1, "item": { "category": "cake", "type": "chiffon" }, "amount": 10 },
+                    { "_id": 2, "item": { "category": "cookies", "type": "chocolate chip" }, "amount": 50 },
+                    { "_id": 3, "item": { "category": "cookies", "type": "chocolate chip" }, "amount": 15 },
+                    { "_id": 4, "item": { "category": "cake", "type": "lemon" }, "amount": 30 },
+                    { "_id": 5, "item": { "category": "cake", "type": "carrot" }, "amount": 20 },
+                    { "_id": 6, "item": { "category": "brownies", "type": "blondie" }, "amount": 10 }
+            ]
+            )
+
+            - _id값을 이용하여 정렬
+                    db.order.find().sort({"_id":1})
+                    db.order.find().sort({"_id":-1})
+
+            - amount로 오름차순 정렬하고, 그 결과내에서 다시 id값으로 내림차순 정렬
+                    db.order.find().sort({"amount":1,"_id":-1})
+
+            - 출력할 데이터갯수를 제한하고자 할때 
+                    db.order.find().limit(3)
+
+            - 데이처를 원하는 갯수만큼 생략하고 출력
+                    db.order.find().skip(2)
+
+            - 응용 : 페이징 기능
+                    var showPage = function(page){
+                            return db.order.find().sort({"_id":-1}).skip((page-1)*2).limit(2)}   #내림차순 정렬  # 페이지별로 몇개의 수..???를 나눌것인가?? 페이지 이동의 개념?
+
+                    showPage(1)
+                    showPage(2)
+                    showPage(3)
+
+6. 수정
+db.people.insert([
+{ name: "Abet", age: 19 },
+{ name: "Betty", age: 20 },
+{ name: "Charlie", age: 23, skills: [ "mongodb", "nodejs"] },
+{ name: "David", age: 23, score: 20 }
+])
+-------------------------------------------------------------------------------------------
+    1) 특정 field를 업데이트하기 ($set을 생략할 경우 전체 데이터로 수정)
+        -Abet의 age를 20으로 변경
+            db.people.update({name:"Abet"}, {$set:{age:20}})
+            db.people.update({name:"Abet"}, {age:21})   # set 생략해도 가능
+            db.people.update({age:21}, {name:"Abet", "age":20})
+
+    2) 특정 field를 삭제
+        -David의 score라는 field를 삭제
+            db.people.update({"name":"David"}, {$unset:{score:1}})
+
+    3) 특정 field를 추가
+        - Elly의 나이를 17살 추가
+            db.people.update({"name":"Elly"}, {"name":"Elly", "age":17}) # 추가 안됌. 없으니까.
+            db.people.update({"name":"Elly"}, {"name":"Elly", "age":17},
+                             {upsert:true})  # 없으면 추가하라는 지시 붙이기
+
+    4) 여러 document의 특정 field를 수정
+        - age가 20보다 작거나 같은 document의 score를 10으로 변경
+            db.people.update({"age":{$lte:20}}, {$set:{score:10}},
+                             {multi:true})   # 여러개 동시에 수정하는 기능 multi
+
+    5) 배역에 값 추가
+        -Charlie document의 skills배열에 "angular.js" 추가
+            db.people.update({"name":"Charlie"}, {$push:{"skills":"angular.js"}})   #$push?
+
+        -Charlie의 skills에 c++, python을 추가
+            db.people.update({"name":"Charlie"}, {$push:{"skills":["c++", "python"]}})  #[]가 표시되어 print됌
+            db.people.update({"name":"Charlie"}, {$push:{"skills":                      #[]안보이게 print하기
+                                     {$each:["R", "keras"]}
+                              }
+                            })
+
+    6) 배열에서 값 제거하기
+        - Charlie에서 skills 중에 "nodejs" 제거
+            db.people.update({"name":"Charlie"}, {$pull:{skills:"nodejs"}})
+
+        - R과 keras 제거
+            db.people.update({"name":"Charlie"},
+                    {$pull:{skills:{$in:["R", "keras"]}}})

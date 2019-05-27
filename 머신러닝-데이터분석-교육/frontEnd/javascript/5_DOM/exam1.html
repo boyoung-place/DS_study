@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        function fnInit(){
+            //var root = document.documentElement;  //트리구조의 가장 꼭대기에 위치하는 값
+            //console.log(root.nodeName);  //트리에서의 위치확인(결과:html로 나옴)
+            //console.log(root.nodeValue);  // 노드의 값 출력(결과:Null)
+            //console.log(root.nodeType);   //결과:1
+
+            //var child = root.lastChild;
+            //console.log(child.nodeName);  //트리에서의 위치확인(결과:body로 나옴)
+            //console.log(child.nodeValue);  // 노드의 값 출력(결과:Null)
+            //console.log(child.nodeType);   //결과:1
+
+            //console.log(root.lastChild.nodeName);
+            //console.log(document.documentElement.lastChild.nodeName);
+
+            //body 접근하는 법
+            var body = document.documentElement.lastChild;  //body까지 접근한 것임(html의 lastChild)
+            //var span = body.firstChild
+            //console.log(span.nodeName)
+            //console.log(span.nodeValue)
+            //console.log(span.nodeType)
+
+            //var txt = span.firstChild;
+            //console.log(span.nodeName)
+            //console.log(span.nodeValue)
+            //console.log(span.nodeType)
+
+            //var span = document.getElementById("a")
+            //console.log(span.nodeName)
+            //console.log(span.nodeValue)
+            //console.log(span.nodeType)
+
+            var spanList = document.getElementsByTagName("span");   //순서대로 3곳에 있는 span관련 유전자들...
+            //console.log(spanList.length); //3개 나와야
+            //console.log(spanList.item(0).firstChild.nodeValue);   //item(1)까지 접근
+            //console.log(spanList.item(1).getAttribute("id"));
+
+            for(var i=0; i<spanList.length; i++){
+                var span = spanList.item(i);
+                console.log((i+1) + "번째 span의 id는" + span.getAttribute("id"));
+            }
+
+            //첫번째 p태그의 텍스트값을 출력(=test출력)
+            var pList = document.getElementsByTagName("p");  //태그이름p 다 모아오기
+            //console.log(pList.item(0).firstChild.nodeName);  //첫번째 p 태그 가져와서 노드 접근하기
+            console.log(pList.item(0).firstChild.nextSibling.nodeValue);// 형제노드 접근하기
+
+            var p = document.getElementsByTagName("p").item(0);
+            var childList = p.childNodes           //자식노드p 다 가져오기
+            for(var i =0; i<childList.length; i++){
+                var child = childList.item(i);
+                if(child.nodeType == 3){          //노드타입비교해서 알아보기  3=textnode
+                    console.log(child.nodeValue);
+                }
+            }
+
+        }
+
+        window.onload = fnInit;
+    </script>
+</head>
+<!--공백도 하나의 노드라서 body와 span 사이의 공백이 node가 된 것임-> 공백을 없앤다! -->
+<body>
+    <span id="a">a</span>
+    <p><b>진하게</b>test<span id="b">b입니다.</span></p>
+    <div><p>p</p> <span id="c">c</span></div>
+</body>
+</html>

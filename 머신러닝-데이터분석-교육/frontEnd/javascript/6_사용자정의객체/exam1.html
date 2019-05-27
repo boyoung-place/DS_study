@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        /*
+            class Book:
+                title = str()
+                author = str()
+
+                def __init__(self, title, author):
+                    self.title = title;
+                    self.author = author;
+
+                def setValue(self, title, author):
+                    self.title = title;
+                    self.author = author;
+        */
+
+        window.onload = function(){
+            Book = function(title, author){    //클래스 만들었음
+                this.title = title;
+                this.author = author;
+            }
+
+            var b1 = new Book("노인과 바다", "헤밍웨이")
+            var b2 = new Book("홍길동전", "허균")
+
+            console.log(b1.title + ", " + b1.author);
+            console.log(b2.title + ", " + b2.author);
+
+            //setValue 메서드 추가하기
+            Book.prototype.setValue = function(title, author){
+                this.title = title;
+                this.author = author;
+            }
+
+            b1.setValue("노인과 산", "헤밍웨이")
+            console.log(b1.title + ", " + b1.author);
+        }
+
+        function fnDisplay(t){
+            //var v = document.f.t1.value;
+
+            //var v = t.value
+            //document.f.result.value = v;
+
+            //result = document.f.t1.value + ", " + document.f.t2.value + ", " + document.f.t3.value;
+            result = t.t1.value + ", " + t.t2.value + ", " + t.t3.value;
+            t.result.value = result;
+        }
+    </script>
+</head>
+<body>
+    <form name="f">
+        <!--
+        <input type="text" name="t1" onchange="fnDisplay(this)"/><br><br>   텍스트 안의 내용이 바뀌었을때 - onchange 호출
+        <input type="text" name="t2" onchange="fnDisplay(this)"/><br><br>   this 를 넣어서 자기자신을 가리킨다, 텍스트값의 주소?가 됌..
+        <input type="text" name="t3" onchange="fnDisplay(this)"/><br><br>
+        -->
+        <input type="text" name="t1" /><br><br>
+        <input type="text" name="t2" /><br><br>
+        <input type="text" name="t3" /><br><br>
+        <input type="button" value="버튼" onclick="fnDisplay(this.form)"/>  <!--해당버튼이 있는 form의 주소를 넘겨준다 -->
+        <hr>
+        <input type="text" name="result" readonly="readonly" />
+    </form>
+</body>
+</html>

@@ -1,0 +1,25 @@
+SQL연습1
+1. 1981년에 입사한 사람의 이름, 업무, 입사일자 조회
+SELECT ename, job, hiredate FROM scott_emp WHERE hiredate BETWEEN '1981-01-01' AND '1981-12-31';
+SELECT ename, job, hiredate FROM scott_emp WHERE hiredate LIKE '1981%';
+
+2. 사번이 7902, 7788, 7566인 사원의 이름, 업무, 급여,입사일자 조회
+SELECT empno, ename, job, sal, hiredate FROM scott_emp WHERE empno IN('7902', '7788', '7566');
+
+3. 업무가 manager, clerk, analyst가 아닌 직원의 이름,업무, 급여, 부서번호 조회
+SELECT ename, job, sal, deptno FROM scott_emp WHERE job != 'manager' AND job != 'clerk' AND job !='analyst';
+SELECT ename, job, sal, deptno FROM scott_emp WHERE job NOT IN('manager','clerk','analyst');
+
+4. 업무가 president 또는 salesman이고 급여가 1500인직원의 이름, 급여, 업무, 부서번호 조회
+SELECT ename, sal, job, deptno FROM scott_emp WHERE (job = 'president' OR job ='salesman') AND sal = 1500;
+-- 먼저 이루어져야하는 과정에 괄호()표시하기
+
+5. 가장 최근에 입사한 직원의 이름, 부서, 업무, 입사일자조회(현재 검색 일자가 1987년이라 가정한다.)
+SELECT ename, deptno, job, hiredate FROM scott_emp ORDER BY hiredate DESC limit 1;  --limit 는 표준문법은 아니다.
+SELECT ename, deptno, job, hiredate FROM scott_emp ORDER BY hiredate DESC;
+
+6. 같은 부서내에서 같은 업무를 하는 직원의 급여가 많은 순으로 조회
+SELECT ename, deptno, job, sal FROM scott_emp ORDER BY job, sal DESC;
+
+7. 커미션이 급여보다 10%이상 많은 직원의 급여가 많은 순으로 조회
+SELECT ename, deptno, job, sal FROM scott_emp WHERE comm >= sal * 1.1 ORDER BY sal DESC;

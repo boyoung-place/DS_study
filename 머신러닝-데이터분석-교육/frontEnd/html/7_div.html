@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div style="background-color:red">내용</div>  <!--전체 행이 범위-->
+    <span style="background-color:blue">내용에 따른 범위</span><br> <!--내용의 마지막입력위치까지 (내용에 따른 범위를 잡아줌)-->
+    <table width="100%">
+        <tr>
+            <td>
+            <td style="background-color:red">내용</td>
+            </td>
+        </tr>
+    </table>
+    <div style="background-color:blue;width:300px;height:400px">내가 원하는 크기</div> <br><br>
+    <hr>
+    <div style="width:600px">
+        <div style="height:50px;background-color:yellow"> 상단메뉴</div>
+        <div style="margin-top:10px">
+            <div style="width:100px;height:300px;background-color:red;float:left;margin-right:10px">왼쪽사이드 메뉴</div>  <!-- 여기에 10px준 만큼 -->
+            <div style="width:490px;height:300px;background-color:blue;float:left">컨텐츠 영역</div>  <!-- 여기 width를 그만큼 뺴준다(10px) -->
+        </div>
+        <div style="clear:both"></div>
+        <div style="height:50px;background-color:cyan;margin-top:10px">하단메뉴</div>  <!-- 위의 float 속성떄문에 실행이 잘 안됌 그래서 바로 윗줄에 clear해줌-->
+    </div>
+    <br><br>
+    <hr>
+    <div contenteditable="true">여기에 입력</div>
+</body>
+</html>

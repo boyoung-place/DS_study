@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="jquery-3.3.0.min.js"></script>   <!--JQuery 기능 -->
+    <script>
+        $(document).ready(           // 문서실행 기다림 모든기능은 함수단위로 작성해야?!
+            function(){
+                $("span").addClass("spanText");             // 막강한 selector
+
+                $("p a").css("text-decoration", "none");    //밑줄없애기?  p태그 안에 있는 a들만
+                $("p ~ a").css("color", "red");
+                $(".one a").css("color", "cyan");          //p.one a 로 하면 3개의 요소가 되어서 오류-> 요소 2개(.one a)로 작성
+                $("p > a").css("color", "green");         // p 바로 아래 자식 a 와 일치
+                $("p + a").css("color", "pink");          // p바로 다음에 나오는 형제 a와 일치  (description 참고)
+            }
+        );
+    </script>
+    <style>
+        .spanText{
+            font-style:italic;
+            font-weight:bold;
+        }
+    </style>
+</head>
+<body>
+    <span class="spanText">이것은 테스트입니다.</span>
+    <p>
+        <span class="one">
+            <a href="#">1.html</a>
+        </span>
+        <br>
+            <a href="#">2.html</a>
+            <a href="#">3.html</a>
+    </p>
+    <a href="#">4.html</a>
+    <a href="#">5.html</a>
+
+</body>
+</html>

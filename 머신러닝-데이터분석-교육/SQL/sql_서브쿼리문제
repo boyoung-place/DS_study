@@ -1,0 +1,30 @@
+**** 서브쿼리 문제 ****
+1. Blake와 같은 부서에 있는 모든 직원의 사번, 이름, 입사일자 조회
+SELECT empno, ename, hiredate FROM scott_emp WHERE deptno IN (SELECT deptno FROM scott_emp WHERE ename= 'BLAKE');
+
+2. SELECT empno, ename, deptno, sal, comm FROM emp
+WHERE (sal, comm) IN(SELECT sal, comm FROM emp WHERE deptno=30);
+이 쿼리에서 보너스가 null인 사람도 출력될 수 있도록 수정하시오.
+SELECT empno, ename, deptno, sal, comm FROM scott_emp
+WHERE (sal, comm) IN(SELECT sal, coalesce(comm,0) FROM scott_emp WHERE deptno=30); 
+
+# coalesce 함수: null값이 있으면 출력하고, 없으면 그 다음으로 넘어가게 하는 역할. (p.142_ case문으로 데이터 변환하기)
+# ex) COALESCE(a,0) = a가 NULL이 아니면 a값을 그대로 출력하고, 그렇지 않으면(a가 NULL이면) 0을 출력해라.
+
+3. 평균 급여 이상을 받는 직원들의  사번, 이름을 조회. 단, 급여가 많은 순으로 정렬
+SELECT empno, ename,sal FROM scott_emp WHERE sal >= (SELECT AVG(sal) FROM scott_emp) ORDER BY sal DESC;
+
+4. 이름에 T자가 들어가는 직원이 근무하는 부서에서 근무하는 직원의 사번,이름, 급여 조회
+SELECT empno, ename, sal FROM scott_emp WHERE deptno = (SELECT deptno FROM scott_emp WHERE ename like '%T%');
+
+5. 부서의 위치가 dallas인 모든 직원에 대해 사번, 이름, 급여, 업무조회
+SELECT empno, ename, sal, job, deptno FROM scott_emp WHERE deptno = (SELECT deptno FROM scott_dept WHERE loc= 'dallas');
+
+6. King에게 보고하는 모든 직원의 이름과 부서, 업무, 급여를 조회
+SELECT ename, deptno, job, sal FROM scott_emp WHERE deptno IN (SELECT deptno FROM scott_emp WHERE ename = "King") AND ename != 'king';
+
+7. 급여가 30번 부서의 최저급여보다 높은 직원의 사번, 이름, 급여 조회
+SELECT empno, ename, sal, deptno FROM scott_emp WHERE sal > (SELECT min(sal) FROM scott_emp WHERE deptno = 30);
+
+8. 10번부서에서, 30번 부서의 직원과 같은 업무를 하는 직원의 이름과 업무를 조회
+SELECT ename, job, deptno FROM scott_emp WHERE deptno = 10 AND job IN (SELECT job FROM scott_emp WHERE deptno = 30);

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>목록</title>
+</head>
+<!-- http://127.0.0.1:8000/guest -->
+<body>
+    <h2>글 목록</h2>
+    <table border="1">
+        <tr>
+            <th>아이디</th><th>제목</th><th>내용</th><th>등록일</th>
+        </tr>
+    {% for g in gdatas %}
+        <tr>
+            <td>{{g.id}}</td>
+            <td>{{g.title}}</td>
+            <td>{{g.content}}</td>
+            <td>{{g.regdate}}</td>
+        </tr>
+    {% endfor %}
+    </table>
+</body>
+</html>

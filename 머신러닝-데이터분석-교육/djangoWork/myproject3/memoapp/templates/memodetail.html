@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        function fnUpdate(){
+            document.f1.action='memoupdate';
+            document.f1.submit();
+        }
+    </script>
+</head>
+<body>
+    <h2>메모 편집</h2>
+    <form name="f1" method="post">    <!--서버에 보낼 값이 여러개일 떄는 form문을 반드시 써준다-->
+        <input type="hidden" name="idx" value="{{dto.idx}}" />    <!--화면엔 보이지않게 서버에 몰래 전달 -->
+        <table border="1">
+            <tr>
+                <td>이름</td>
+                <td><input type="text" name="writer" value="{{dto.writer}}" /></td>
+            </tr>
+            <tr>
+                <td>메모</td>
+                <td><input type="text" name="memo" value="{{dto.memo}}"/></td>
+            </tr>
+            <tr>
+                <td>날짜</td>
+                <td>{{dto.post_date}}</td>
+            </tr>
+            <tr>
+              <td colspan="2" align="center">    <!-- 버튼 달기 -->
+                  <input type="button" value="수정" onclick="fnUpdate"/>&nbsp;&nbsp;
+                  <a href="memodel?idx={{dto.idx}}">삭제</a>
+              </td>
+            </tr>
+        </table>
+    </form>
+</body>
+</html>

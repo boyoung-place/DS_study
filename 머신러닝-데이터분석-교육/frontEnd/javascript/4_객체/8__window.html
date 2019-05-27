@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        function fnOpen(){
+            //window.open("보여질 문서", "창 이름", "창 모양에 대한 속성")
+            //window.open("4_String.html", "pop1");
+            window.open("4_String.html", "pop1", "width=300, height=400, left=100, top=300");
+        }
+
+        function showWatch(){
+            var today = new Date();
+            var msg = "현재 시간은" + today.getHours() + "시" + today.getMinutes() + "분" + today.getSeconds() + "초 입니다.";
+            document.f.watch.value = msg;
+
+            //setTimeout(showWatch, 1000);
+        }
+        var gTime;
+        function fnTime(){
+            //setTimeout(showWatch, 1000);
+            gTime = setInterval(showWatch, 1000);
+        }
+
+        function fnTimeStop(){
+            clearTimeout(gTime);
+        }
+
+        function fnZipCode(){
+            window.open("zipcode.html", "pop2", "width=300, height=200");
+        }
+    </script>
+</head>
+<body>
+    <form name="f">
+        <input type="button" value="팝업창 열기" onclick="fnOpen()" /><br><br>
+
+        <input type="text" name="watch" size="50" />
+         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="button" value="현재 시간 보이기" onclick="fnTime()" />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="button" value="현재 시간 중지" onclick="fnTimeStop()" />
+        <hr>
+        <input type="button" value="우편번호 검색" onclick ="fnZipCode()" />
+        <br><br>
+        주소: <input type="text" name="search" size="50" />
+    </form>
+</body>
+</html>

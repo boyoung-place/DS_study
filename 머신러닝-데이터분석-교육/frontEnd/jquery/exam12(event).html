@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="jquery-3.3.0.min.js"></script>
+    <script>
+        $(document).ready(
+            function(){
+                //$("#mybtn").click();  //click은 간단하게 쓸 때.. 원칙은 bind
+                $("#mybtn").bind("click",{name:"홍길동", age:20},function(e){     // bind(type, data, fn) <- 2번째 인자의 역할은? 내가 필요한 데이터을 이벤트에 넘길수o, 단 json형태여야함
+                    alert(e.data.name + ", " + e.data.age);
+                });
+
+                $("#animal").one("click", function(){
+                    alert("이미지를 클릭하지 마세요.\n 두번 말하지 않습니다.");
+                });
+            }
+       );
+
+    </script>
+    <style>
+        img {width:200px; height:200px}
+    </style>
+</head>
+<body>
+    <div id="light">
+        <img id="animal" src="images/Koala.jpg" />
+    </div>
+    <button id="mybtn">눌러주세요.</button>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

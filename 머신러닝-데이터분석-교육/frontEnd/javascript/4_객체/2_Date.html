@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        var today = new Date();
+        document.write(today + "<br>");
+        document.write(today.getFullYear() + "<br>");
+        document.write(today.getDay() + "<br>");  //오늘요일을 숫자로 나타냄
+        document.write(today.getTime() + "<br>");  //시간도 숫자로... millisecond, 즉 1/1000 초를 나타냄. 1970년 1월 1일 기준
+
+        //화요일
+        var week = new Array("일", "월", "화", "수", "목", "금", "토");
+        var day = week[today.detDay()];
+        document.write("오늘은" + day + "요일입니다.<br><br>" );
+
+        function getAge(){
+            year = document.f.year.value
+            var age = new Date().getFullYear() - year;
+            document.f.age.value = age + "세";
+        }
+    </script>
+</head>
+<body>
+    나이를 자동으로 계산<br>
+    <form name="f">
+        출생년도 : <input type="text" name="year" value="" onblur="getAge()" /> <br><br>
+        나이 : <input type="text" name="age" readonly="readonly" />
+    </form>
+</body>
+</html>
