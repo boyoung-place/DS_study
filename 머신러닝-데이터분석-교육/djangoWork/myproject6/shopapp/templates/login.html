@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        function fnShowNext(){
+            location.href = "show_next?
+        }
+
+        function fnShowLogin(){
+            location.href = "/"
+        }
+    </script>
+</head>
+<body>
+    <h2>로그인 페이지</h2><br><br>
+    <form action="loginsert" method="post">    <!--모든 웹의 공통적인 문...법? 사용방법..? -->
+        아이디: <input type="text" name="id" /> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        패스워드: <input type="text" name="pwd" /> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="button" value="로그인" onclick="fnShowNext()" />
+        <input type="submit" value="취소" onclick="fnShowLogin()"/>
+    </form>
+</body>
+</html>

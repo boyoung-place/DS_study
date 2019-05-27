@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h2>한줄 메모장</h2>
+    {{memoCount}}개의 메모가 있습니다. <br>
+    <form action="memoinsert" method="post">    <!--모든 웹의 공통적인 문...법? 사용방법..? -->
+        이름: <input type="text" name="writer" /> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        메모: <input type="text" name="memo" /> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="submit" value="확인" />
+    </form>
+    <hr>
+    <table border="1">
+        <tr>
+            <th>번호</th><th>이름</th><th>메모</th><th>날짜</th>
+        {% for row in memoList %}
+        <tr>
+            <td>{{row.idx}}</td>
+            <td><a href="memodetail?idx={{row.idx}}">{{row.writer}}</a></td>
+            <td>{{row.memo}}</td>
+            <td>{{row.post_date}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

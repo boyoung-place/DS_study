@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<!-- http://127.0.0.1:8000/dbapp/show -->    <!-- 시험문제!!!!!!! -->
+<body>
+{% extends 'layout.html %}
+
+{% block content %}
+    <h2>자료 리스트</h2>
+    {% if articles.count > 0 %}
+        {% for a in articles %}
+            <b>{{a.code}}</b> {{a.name}} {{a.price}} {{a.pub_date}} <br>
+        {% endfor %}
+    {% else %}
+        <p>자료가 없습니다.</p>
+    {% endif %}
+{% endblock %}
+</body>
+</html>
