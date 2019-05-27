@@ -95,6 +95,7 @@ fwd.model <- step(min.model, direction = 'forward', scope = (Murder~Population+I
 # all subset regression
 install.packages('leaps')
 library(leaps)
+#기본값은 각 변수 개수당 최선의 모델을 한 개씩만 구한다. 만약 변수 개수당 n개의 최선의 모델을 얻고자 한다면 nbest=n을 지정한다
 result <- regsubsets(Murder~ ., data=states, nbest=4)
 plot(result, scale='adjr2')
 
@@ -108,15 +109,6 @@ attach(mydata)
 reg <- lm(birth_rate ~ cultural_center + social_welfare +active_firms + pop + urban_park + doctors + tris + kindergarten + dummy, data = mydata)
 summary(reg)  # Adjusted R-squared:  0.1089
 
-# 정규분포 확인
-shapiro.test(resid(reg))  #p-value = 0.0005312 -> 정규분포가 아니다.
-
-# 정규화 
-# lm(log(y) ~ log(x), data=mydata)
-reg2 <- lm(log(birth_rate)~ log(cultural_center) + log(social_welfare) + log(active_firms) + log(pop) + log(urban_park) + log(doctors) + log(tris) + log(kindergarten) + dummy, data=mydata)
-shapiro.test(resid(reg2)) #p-value = 0.09726
-summary(reg2) # social_welfare, active_firms, tris
-
 
 reduced.reg <- step(reg, direction = 'backward')
 summary(reduced.reg)  # Adjusted R-squared:  0.1184 
@@ -128,7 +120,7 @@ summary(fwd.reg)  # Adjusted R-squared:   0.12
 #기본값은 각 변수 개수당 최선의 모델을 한 개씩만 구한다. 만약 변수 개수당 n개의 최선의 모델을 얻고자 한다면 nbest=n을 지정한다.
 result_reg <- regsubsets(birth_rate ~ cultural_center + social_welfare +active_firms + pop + urban_park + doctors + tris + kindergarten + dummy, data = mydata, nbest=4)
 summary(result_reg)
-plot(result_reg, scale='adjr2')  # adjr 0.12 가 최대 <= (Intercept), social_welfare, active_firms, pop, tris(폐수배출업소)
+plot(result_reg, scale='adjr2')  # adjr 0.12 가 최대 <= social_welfare, active_firms, pop, tris(폐수배출업소)
 
 
 #####################################################
