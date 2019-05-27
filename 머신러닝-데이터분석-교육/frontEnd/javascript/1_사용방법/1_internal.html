@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>    /* html과는 구분되는 영역, javascript를 이용할 수 있다 */
+        /*
+           여러줄
+           주석
+        */
+        i = 10;
+        document.write(i + "<br>")
+
+        i = "이번엔 문자열";
+        document.write(i + "<br>")
+
+        var a=20, b='20', c;   /* 연속적으로 변수지정할때 ',' */
+        c = a == b;  // 값을 비교
+        document.write(c + "<br>");
+
+        c = a === b; // 형식을 비교
+        document.write(c + "<br>");
+    </script>
+</head>
+<body>
+    <h2>아래에는 i변수의 값이 출력됩니다.</h2>
+    <script>
+        document.write(i + "<br>");
+    </script>
+    <h2>1부터 10까지 카운터</h2>
+    <script>
+        for(i=1: i<=10; 1++){     // ++: +=1과 같은 의미
+            document.write(i + "<br>");
+        }
+    </script>
+</body>
+</html>

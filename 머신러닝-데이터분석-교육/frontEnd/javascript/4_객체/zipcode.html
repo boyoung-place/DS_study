@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        function fnAddress(si, gu, dong){                              //window.html에 해당주소값을 보내주는 처리를 해야함  opener 속성을 이용해야 함
+            //alert(si + ", " + gu + ", " + dong);
+            addr = si + " " + gu + " " + dong
+            opener.document.f.addr.value = addr;
+            window.close();
+        }
+    </script>
+</head>
+<body>
+    <a href="#" onclick="fnAddress('서울시', '종로구', '효자동')">서울시 종로구 효자동</a><br>    <!--onclick 쓸때에는 #으로 a href 막아줘야함-->
+    <a href="#" onclick="fnAddress('서울시', '강남구', '역삼동')">서울시 강남구 역삼동</a><br>
+    <a href="#" onclick="fnAddress('서울시', '도봉구', '창동')">서울시 도봉구 창동</a><br>
+
+</body>
+</html>

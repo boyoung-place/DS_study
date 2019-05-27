@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="jquery-3.3.0.min.js"></script>
+    <script>
+        $(document).ready(
+            function(){
+                // "앨범목록입니다"라는 글자에 테두리(border, solid 1px silver) 설정
+                $("#album").css("border", "solid 1px silver")
+
+                // "홍길동에게"라는 글자의 배경을 lightblue로 지정
+                $("a[href^='mailto']").css("background", "lightblue");
+
+                // 버튼의 배경색을 yellow로 지정
+                $("input[type= 'button']").css("background", "yellow");
+
+                // div 태그 바로 다음에 있는 b태그에만 배경색을 #C0FFEE로 지정
+                $("div+b").css("background", "#C0FFEE");
+
+                // div와 같은 형제인 모든 b태그에 테두리 지정
+                $("div~b").css("border", "solid 1px silver");
+            }
+        );
+    </script>
+</head>
+<body>
+    <span><a href="http://jquery.com">jquery</a></span>
+    <br>
+    <a href="mailto:hong@gildong.net">홍길동에게</a>
+    <p>
+        <input type="button" value="클릭!"/>
+        <input type="checkbox" />
+        <input type="radio" />
+    </p>
+    <div id="album">앨범 목록입니다.</div>
+    <b>노라조</b><span>슈퍼맨</span><br>
+    <b>이적</b><span>다행이다</span><br>
+    <b>김동률</b><span>아이처럼</span><br>
+</body>
+</html>

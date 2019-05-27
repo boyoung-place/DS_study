@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="jquery-3.3.0.min.js"></script>
+    <script>
+        $(document).ready(
+          function(){
+          //b태그안에 j라는 글자가 들어간 태그의 배경색만 노랑색
+          $("b:contains('j')").css("background","yellow");
+
+          //ul태그를 가지고 있는 div만 테두리 작성
+          $("div:has('ul')").css("border","solid 1px green")    //지정된 selector에 해당하는 요소를 갖는 모든 요소들과 일치
+
+          //테이블에 비어있는 셀을 찾아 배경색을 cyan로 작성
+           $("td:empty").css("background","cyan")
+
+          //여성에 해당되는 행만 배경색을 pink로 작성
+         $("tr:contains('F')").css("background","pink")
+         //$("td:contains('F')").parent().css("background","pink")
+         }
+       );
+    </script>
+    <style>
+        * {font-size:12px; font-family:맑은고딕}
+
+        .nameTable{
+            background-color:white;
+            border-collapse:collapse;
+        }
+    </style>
+</head>
+<body>
+    <h3>jQuery란?</h3>
+    <div>
+        <b>jQuery</b>는 가볍고, 빠르며, 간결한 오픈소스 라이브러리
+        이다. 이를 이용하면 Rich Web UI를 개발하는 데 도움이 되는
+        다양한 기능들 즉, <b>HTML문서 트래버스</b>,
+        <b>이벤트 처리</b>, <b>애니메이션</b>,
+        <b>Ajax 상호작용</b> 등을 지원하며 빠르고 견고하게 리치 웹
+        어플리케이션을 개발할 수 있도록 지원한다.
+    </div>
+        <br>
+        <div>이러한 <b>jQuery</b>의 기능적인 특징은 다음과 같다.</div>
+        <br>
+        <div>
+        <ul>
+        <li>막강한 CSS Selector</li>
+        <li>크로스 브라우저 지원</li>
+        <li>메서드 체인</li>
+        <li>Ajax 지원</li>
+        <li>풍부한 플러그인 지원</li>
+        </ul>
+    </div>
+    <br>
+    <table border="1" class="nameTable">
+        <tr><td>이름</td><td>성별</td><td>기타 정보</td></tr>
+        <tr><td>홍길동</td><td>M</td><td>...</td></tr>
+        <tr><td>임꺽정</td><td>M</td><td></td></tr>
+        <tr><td>유비</td><td>M</td><td></td></tr>
+        <tr><td>관우</td><td>F</td><td>...</td></tr>
+        <tr><td>장비</td><td>F</td><td></td></tr>
+        <tr><td>전우치</td><td>M</td><td>...</td></tr>
+    </table>
+</body>
+</html>

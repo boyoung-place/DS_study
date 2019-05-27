@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        /*
+        var arr = new Array();  //객체 생성 , 1차원배열(파이썬의 리스트와 비슷)
+        arr[0] = "홍길동";
+        arr[1] = 100;
+        arr[2] = 3.14;
+        */
+
+        /*
+        var arr = new Array("홍길동", 100, 3.14);  //1차원배열만 제공..
+
+        for(var i=0; i<arr.length; i++){
+            document.write(arr[i] + "<br>");
+        }
+
+        var arr1 = new Array(1, "홍길동", "서울시 강남구");
+        var arr2 = new Array(2, "임꺽정", "서울시 강북구");
+
+        var arr3 = new Array(arr1, arr2);
+        document.write(arr3[0][1] + "," + arr3[1][2]);  //몇행몇열
+        */
+
+        var arr = new Array("홍길동", "임꺽정", "유비", "관우", "장비");
+        document.write(arr.join(" and ") + "<br>");  //and로 계속 이어붙어져서 나옴
+
+        var arr1 = arr.reverse()
+        document.write(arr1.join() + "<br>");   //순서거꾸로, 데이터에 영향줌
+
+        var arr2 = arr.sort()
+        document.write(arr2.join() + "<br>");  //데이터에 영향줌
+
+        var arr3 = arr.slice(1, 3);
+        document.write(arr3.join() + "<br>");
+
+        var arr4 = new Array("Korea", "France", "England", "Brazil");
+        var arr5 = arr.concat(arr4);
+        document.write(arr5.join() + "<br>");
+        document.write(arr.join() + "<br>");
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>

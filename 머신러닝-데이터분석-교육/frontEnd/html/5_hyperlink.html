@@ -1,0 +1,42 @@
+<!--
+    URL  :  프로토콜명://도메인주소(아이피주소): 포트번호/파일명#세부위치  <포트번호가 있어야 실제 프로그램 접근까지 가능하다. ip주소까지는 걍 컴퓨터접속..
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <!--이동의 기능 -->
+    <a href="http://www.w3schools.com">w3schools.com</a>    <!--anchor기능 href:참조 -->
+    <a href="sub/sub1.html" target="_self">sub1.html로 이동</a><br>  <!-- _self: 따로 이동하지않고 현재 페이지에서 보이겠다 -->
+    <a href="sub/sub1.html" target="_blank">sub1.html로 이동</a><br>  <!-- _blank: 새로운 창을 열게끔 -->
+    <ul>
+        <li><a href="sub/sub2.html#first">첫번째 주제</a></li>
+        <li><a href="sub/sub2.html#second">두번째 주제</a></li>
+        <li><a href="sub/sub2.html#third">세번째 주제</a></li>
+    </ul>
+
+    <!-- 프로그램 실행 -->
+    <a href="res/Clip.mp4">동영상 실행</a><br>
+    <a href="res/Sleep.mp3">음악 실행</a><br>
+    <a href="res/example.zip">압축파일</a><br>
+    <video controls="controls" width="300" height="400">
+        <source src="res/Clip.mp4">
+    </video>
+    <br><br>
+    <audio src="res/Sleep.mp3" controls="controls">
+        <p>이 문장이 보인다면 audio 태그를 지원하지 않는 브라우저를 사용중입니다.</p>  <!-- 대체문장 -->
+    </audio>
+    <br><br>
+    <a href="mailto:mangokiwi@hanmail.net">메일보내기</a>
+    <br><br>
+    <!-- 이미지 맵 -->
+    <img src="images/Penguins.jpg" usemap="#penguin"/>
+    <map name="penguin">
+        <area shape="rect" coords="245,104,295,140" href="http://daum.net">
+        <area shape="circle" coords="524,146,50" href="https://search.naver.com/search.naver?sm=top_hty&fbm=1&ie=utf8&query=%ED%8E%AD%EA%B7%84">
+    </map>
+</body>
+</html>

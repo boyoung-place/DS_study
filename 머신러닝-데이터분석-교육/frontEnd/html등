@@ -1,0 +1,87 @@
+Web Programming
+
+네트워크 프로그램  - 서버용
+                 - 클라이언트용: 웹브라우저로 서버에 접근해서 사용(웹프로그램)
+
+    * 표준화 Cross Browsing - html5로 대부분 표준화
+
+html : Hyper Text Markup Language   정적 탬플릿?
+html하려면 javascript를 할 줄 알아야함...
+
+<html에서의 경로>
+절대경로(위치고정)
+상대경로..  내 위치를 기준으로
+로컬경로(내 컴퓨터에서만 접근가능)
+가상경로  ex)url  (실제 저장폴더가 있고.. 그렇지 않음)     
+
+재미없어.........
+
+
+
+[CSS] 
+- CSS: Cascading Style Sheet,  html 디자인 유지관리보수.. 디자인을 체계적이고 일관성있게 작성. 종속형 시트ㅡ...?
+
+       Markup Language가 웹사이틑의 몸체를 담당한다면 CSS는 옷과 엑세서리같은 꾸미는 역할을 담당한다고 할 수 있다. 즉, HTML 구조는 그대로 두고 CSS파일만 변경해도 전혀 다른 웹사이트처럼 꾸밀 수 있다.
+
+1. 목적
+    (1) 디자인(HTML 등)의 효과적인 관리(유지 보수나 일관성있는 속성들의 사용..)
+    (2) 웹 표준화(Cross Browsing)
+
+2. 버전
+    css1.x -> css2.x -> css3.x(html5때문에 나왔음) 
+    css3: 그림자효과, 그라데이션, 변형 등 그래픽 편집 프로그램으로 제작한 이미지를 대체할 수 있는 기능이 추가됌 + 다양한 애니메이션 기능이 추가되어 어도비 플래시를 어느 정도 대체하고 있다.
+
+3. 사용방법(javascript와 유사)
+    (1) External Style
+        - 별도의 css파일을 만들어서 호출하여 사용하는 방법
+
+    (2) Internal Style
+        - 하나의 페이지에 단 한번만 정의함으로써 같은 페이지 내에서는 동일한 디자인을 재사용할 수 있다.           ㅠㅠ 시끄러워...
+        - <style> 사용 (속성으로 사용하는 것과 다름)
+        - selector {속성명:값; 속성명:값; ...}
+
+    (3) Inline Style
+        - 태그 안에서 직접 사용하는 방식(즉흥적, 일회용), 재사용의 의미 없음
+        - 태그 안에 style이라는 속성으로 사용
+
+4. Properites
+    (1) Font 관련
+        1) font-family
+        2) font-size
+        3) font-style : normal, italic, oblique
+        4) font-weight : 글자의 굵기
+        5) line-height (line간격임): 줄 간격
+        6) font-variant : 텍스트를 작은 대문자로
+        7) font : 여러개의 속성을 하나로 묶어서 사용
+
+    (2) 색상 및 이미지 관련
+        1) color
+        2) background-color
+        3) background-attachment
+        4) background-position
+        5) background
+
+    (3) 텍스트 관련
+        1) text-transform
+        2) text-align
+        3) text-indent
+        4) text-decoration
+        5) virtical-align
+        6) line-height
+
+    (4) 여백 관련 (margin과 padding)
+        1) 가장 바깥쪽 여백
+            margin-top, margin-left, margin-bottom, margin-right
+        2) 가장 안쪽 여백
+            padding-top, padding-left, padding-bottom, padding-right
+        3) 경계선 여백
+            border-top, border-left, border-bottom, border-right,
+            border-width, border-style, border-color
+
+    (5) 상속
+        1) 독립적 상속
+        2) 선택적 상속
+
+    (6) Custom Selector
+        1) class
+        2) id

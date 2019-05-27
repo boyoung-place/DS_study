@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="jquery-3.3.0.min.js"></script>
+    <script>
+        $(document).ready(
+            function(){
+                $("#photos img").each(    //id photos로 div불러오기, each 반복돌리기
+                    function(cnt){
+                        $(this).attr("idx", cnt+1);
+                    }
+                ).click(
+                    function(){
+                        alert($(this).attr("idx") + "번째 이미지입니다.");
+                    }
+                );
+
+            }
+       );
+
+    </script>
+    <style>
+        img {width:200px; height:200px}
+    </style>
+</head>
+<body>
+    <div id="photos">
+        <img src="images/Jellyfish.jpg" />
+        <img src="images/Koala.jpg" />
+        <img src="images/Lighthouse.jpg" />
+        <img src="images/Penguins.jpg" />
+        <img src="images/Tulips.jpg" />
+    </div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

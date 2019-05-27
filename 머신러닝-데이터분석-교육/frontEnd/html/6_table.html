@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <table border="1" width="200" height="200" align="center" bgcolor="pink"
+        background="images/duke_box.gif">   <!-- tr : 하나의 열을 만드는 것  td: description-->
+        <caption>가계부</caption>
+        <tr>
+            <th>1행 1열</th> <th>1행 2열</th>  <!-- th: head 제목처럼 쓰겠단 의미 -->
+        </tr>
+        <tr>
+            <td>2행 1열</td> <td bgcolor="yellow">2행 2열</td>
+        </tr>
+        <tr>
+            <td>3행 1열</td> <td>3행 2열</td>
+        </tr>
+    </table>
+    <hr>
+    <table border="1">
+        <tr>
+            <td rowspan="2">1행 1열</td><td colspan="2">1행 2열</td><!--<td>1행 3열</td>-->
+        </tr>
+        <tr>
+            <!--<td>2행 1열</td>--><td>2행 2열</td><td>2행 3열</td>
+        </tr>
+        <tr>
+            <td>3행 1열</td><td>3행 2열</td><td>3행 3열</td>
+        </tr>
+    </table>
+</body>
+</html>

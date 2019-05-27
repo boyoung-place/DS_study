@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../js/log.js"></script>
+    <script>
+        function fnChild(){
+            window.event.stopPropagation();// bubbling 하지말라는 지시문
+            log("Child 선택함");
+        }
+
+        function fnParent(){
+            window.event.stopPropagation();
+            log("Parent 선택함");
+        }
+
+        function fnGrand(){
+            window.event.stopPropagation();
+            log("Grand 선택함");
+        }
+
+        window.onload = function(){
+            var child = document.getElementById("child");
+            var parent = document.getElementById("parent");
+            var grand = document.getElementById("grand");
+
+            child.addEventListener("mousedown", fnChild, false);   //왜 true로 하나용.. 캡쳐를 할건지 말건지 T/F로 지정
+            parent.addEventListener("mousedown", fnParent, false);
+            grand.addEventListener("mousedown", fnGrand, false);
+        }
+    </script>
+</head>
+<body>
+    <div id="grand" style="border:1px solid red">
+        grand의 상단
+        <div id="parent" style="border:1px solid green">
+            parent의 상단
+            <div id="child" style="border:1px solid blue">
+                child
+            </div>
+            parent의 하단
+        </div>
+        grand의 하단
+    </div>
+    <hr>
+    <div id="debugConsole"> </div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

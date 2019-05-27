@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="jquery-3.3.0.min.js"></script>
+    <script>
+        $(document).ready(
+              function(){
+                  $(".annotation").each(       //문장에 주석붙이기: each 함수에 매개변수 지정하여 불러오기
+                      function(i){
+                          $(this).append("<sup>" + (i+1) + "</sup>");
+                      }
+                  );
+
+                  $("button").click(
+                      function(){
+                          //$(this).empty();    // 버튼의 자식을 삭제=text삭제
+                          $(this).remove();     // 버튼이 완전히 사라짐
+                      }
+                  );
+
+                  var $prev = $("#prevBtn").clone();       //껍데기만 복사
+                  var $next = $("#nextBtn").clone(true);   // 이벤트까지 복사(환경설정까지 복사)
+
+                  $("#bottomDiv").prepend($prev);    //id불러올때 앞에 # 붙이기
+                  $("#bottomDiv").append($next);
+
+                  $("<font color='red'>클릭</font>").appendTo("b");  // b 태그에 있는 '클릭' 들의 font를 red로 하겠다.
+              }
+        );
+
+
+    </script>
+</head>
+<body>
+    <button id="prevBtn">이전 페이지로</button>
+    <button id="nextBtn">다음 페이지로</button>
+    <br>
+    <h3>jQuery란?</h3>
+    <div>
+        <b>jQuery</b>는 가볍고, 빠르며, 간결한 <span class="annotation">오픈소스 라이브러리</span>
+        이다. 이를 이용하면 Rich Web UI를 개발하는 데 도움이 되는
+        다양한 기능들 즉, <b>HTML문서 <span class="annotation">트래버스</span></b>,   <!-- 트래버스: 탐색이라는 뜻 -->
+        <b>이벤트 처리</b>, <b>애니메이션</b>,
+        <b><span class="annotation">Ajax</span> 상호작용</b> 등을 지원하며 빠르고 견고하게 리치 웹
+        어플리케이션을 개발할 수 있도록 지원한다.
+    </div>
+    <br>
+    <div id="bottomDiv"></div>
+</body>
+</html>

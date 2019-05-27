@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        window.onload = function(){        // 함수이름없이 만들기(일회용) = 익명함수(파이썬의 람다같은..)
+            // b입니다.출력
+            //alert(document.getElementById("b").firstChild.nodeValue);
+            //alert(document.getElementById("b").innerHTML);  //innerHTML이 뭐라고?? ㅠㅠ
+            alert(document.getElementById("b").tagName);
+        }
+        //window.onload = fnInit; (처음실행될때 윈도우에서 onload될때?? fnInit 함수 호출)
+    </script>
+</head>
+<body>
+    <div id="a">a 입니다.</div>
+    <div id="b">b 입니다.</div>
+    <div id="c">c 입니다.</div>
+</body>
+</html>

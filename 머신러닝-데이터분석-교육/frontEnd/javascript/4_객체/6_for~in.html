@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        var arr = new Array(1, "홍길동", 2, "임꺽정", 3, "이수일");
+
+        for(var i=0; i<arr.length; i++){
+            document.write(arr[i] + "<br>");
+        }
+
+        for(var i in arr){                       //실제 data를 꺼내오는 것이 아니라 위치를 가리키는 것
+            document.write(arr[i] + "<br>");
+        }
+
+        document.write("<hr>")
+
+        for(var i in screen){               // in 뒤에 오는 것들 = 객체!
+            document.write(i + "<br>");
+        }
+
+        document.write("<hr>")
+
+        for(var i in document){
+            document.write(i + "<br>");
+        }
+
+        document.write("<hr>")
+    </script>
+</head>
+<body>
+
+</body>
+</html>

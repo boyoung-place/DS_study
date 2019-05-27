@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        with(document){
+            write("codeName : " + navigator.appCodeName + "<br>" );
+            write("appName : " + navigator.appName + "<br>" );
+            write("version : " + navigator.appVersion + "<br>" );
+            write("userAgent : " + navigator.userAgent + "<br>" );
+            write("platform : " + navigator.platform + "<br>" );
+
+            write("설치된 플러그인의 갯수 :" + navigator.plugins.length + "<br>");
+
+            if(navigator.javaEnabled())
+                write("자바 사용 가능");
+
+            else
+                write("자바 사용 불가능");
+        }
+    </script>
+</head>
+<body>
+
+</body>
+</html>

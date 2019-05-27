@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="jquery-3.3.0.min.js"></script>   <!--JQuery 기능 -->
+    <!--<script src="https://code.jquery.com/jquery-3.4.0.js"></script>-->
+    <script>
+        /*
+        window.onload = function(){
+            alert("자바스크립트 문법으로 실행");
+        }
+        */
+
+        /*
+        jQuery(
+            function(){
+                alert("jQuery 문법으로 실행");
+            }
+        );
+        */
+
+       /*
+       $(
+            function(){
+                alert("jQuery 문법으로 실행");
+            }
+        );
+        */
+
+        /*
+        function test(){                     // 별도로 함수를 만들 때의 방법
+            alert("jQuery 문법으로 실행");
+        }
+
+        $(test);
+        */
+
+        $(document).ready(                     // body 안의 객체들이 실행된 후에 호출된다. (위의 방법들과 다르게) 안전하게 코드를 작성할 수 있다.
+            function(){
+                alert("jQuery 문법으로 실행");
+            }
+        );
+    </script>
+</head>
+<body>
+    <input type="text" />
+</body>
+</html>

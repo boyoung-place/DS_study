@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="jquery-3.3.0.min.js"></script>
+    <script>
+        $(document).ready(
+            function(){
+                // 테이블의 제목행은 배경색을 빨간색으로지정(이름,점수)
+                $(".nameTable tr:first").css("background", "red");
+
+                // 홀수 행마다 배경색을 #efefef로 지정
+                //$(".nameTable tr:odd").css("background", "#efefef");
+                $("tr:odd").css("background", "#efefef");
+
+                // 5번째 행부터 배경색을 silver로 지정
+                $("tr:gt(4)").css("background", "silver");
+
+                // "수학점수"라는 글자를 얇게하고 글자색은 파란색
+                //$(":header:first").css("font-weight", "normal");
+                //$(":header:first").css("color", "blue");
+                $(":header:first").css("font-weight", "normal").css("color", "blue")   // 메서드 체인 지원
+            }
+        );
+    </script>
+    <style>
+        * {font-size:12px; font-family:맑은고딕}
+
+        .nameTable{
+            background-color:white;
+            border-collapse:collapse;
+        }
+    </style>
+</head>
+<body>
+    <h3>수학 점수</h3>
+    <table border="1" class="nameTable">
+        <tr><td>이름</td><td>점수</td></tr>
+        <tr><td>홍길동</td><td>98</td></tr>
+        <tr><td>임꺽정</td><td>87</td></tr>
+        <tr><td>유비</td><td>67</td></tr>
+        <tr><td>관우</td><td>69</td></tr>
+        <tr><td>장비</td><td>58</td></tr>
+        <tr><td>전우치</td><td>76</td></tr>
+    </table>
+<h2>끝</h2>
+</body>
+</html>

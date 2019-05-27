@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        document.write("안녕하세요".length + "<br>");
+        document.write("안녕하세요".big() + "<br>");
+        document.write("안녕하세요".bold() + "<br>");
+        document.write("안녕하세요".fontcolor("red") + "<br>");
+        document.write("안녕하세요".italics() + "<br>");
+        document.write("안녕하세요".strike() + "<br>");
+        document.write("홍길동님!" + "안녕하세요".sub() + "<br>");
+
+        var str1 = "안녕하세요", str2="자바스크립트";
+        document.write(str1.charAt(3) + "<br>");  //왜 세 가 나오징
+        document.write(str2.indexOf('스') + "<br>");
+        document.write(str2.lastIndexOf('스') + "<br>");
+        document.write(str2.lastIndexOf('이') + "<br>");  //찾는문자가없으면 -1 로 나옴
+
+        var str3 = "안녕하세요? 자바-스크립트";
+        //var s = str3.split(' ')      // 공백을 가지고 split되게 설정
+        //var s = str3.split('?')       // 물음표를 기준으로 분리하기
+        var s = str3.split('-');
+        document.write(s[0] + ", " + s[1] + "<br>");
+
+        document.write(str3.substr(2, 6) + "<br>");  // (시작위치, 갯수)
+        document.write(str3.substring(2, 6) + "<br>");    // (시작위치, 끝위치) 공백도 갯수에 포함된다.
+    </script>
+</head>
+<body>
+
+</body>
+</html>

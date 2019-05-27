@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../js/member.js"></script>  <!--외부파일이 먼저 불러와져야 클래스기능을 실행할 수 있다! (순서중요) -->
+    <script>
+        window.onload = function(){
+            /*
+            var hong = new Member("홍길동", "hong", "891212");
+            alert(hong.toString());    // 출력 편하게 할 수 있도록 만들어놓은 toString 클래스를 불러온다
+
+            hong.setValue("홍길동", "hong", "901212");
+            alert(hong.toString());
+            */
+
+            // alert(hong.getAge());
+
+            var kim = new Object();
+            kim.name = "김유신";
+            kim.id = "kim";
+            kim.setValue = function(name, id){
+                this.name = name;
+                this.id = id;
+            }
+            kim.setValue("김유신", "kimm");
+            alert(kim.id + ", " + kim.name);
+        }
+    </script>
+</head>
+<body>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
