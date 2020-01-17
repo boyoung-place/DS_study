@@ -1,7 +1,5 @@
-# 2주차 : CHAPTER 1 Motivations and Basics
+# CHAPTER 1 Motivations and Basics
 
-날짜: Jan 18, 2020
-진행자: 정보영
 
 참고한 블로그 : [https://blog.naver.com/ehdrndd/221451081077](https://blog.naver.com/ehdrndd/221451081077)
 
