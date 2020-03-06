@@ -1,8 +1,3 @@
-# 7주차 : CHAPTER 6 Training Testing and Regularization
-
-날짜: Mar 07, 2020
-진행자: 정보영
-
 # **CH6. Training Testing and Regularization**
 
 ## **Intro**
