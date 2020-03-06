@@ -1,6 +1,5 @@
 # CHAPTER 1 Motivations and Basics
 
-
 참고한 블로그 : [https://blog.naver.com/ehdrndd/221451081077](https://blog.naver.com/ehdrndd/221451081077)
 
 - 1.1. Motivations
@@ -101,13 +100,14 @@
             확률밀도함수                                                        누적분포함수 :  모든 이벤트 발생 확률 sum → 1
 
     - Normal Distribution
+        
         - long tail을 가지고 있다. (0이 아니게, 무한대까지가는 긴 꼬리존재)
     - Beta Distribution
         - long tail 없고 범위가 정해짐 (0~1)
-        - 확률 모델링에 이 분포를 사용함
-
-        ![2%20CHAPTER%201%20Motivations%20and%20Basics/Untitled%2014.png](2%20CHAPTER%201%20Motivations%20and%20Basics/Untitled%2014.png)
-
+    - 확률 모델링에 이 분포를 사용함
+    
+    ![2%20CHAPTER%201%20Motivations%20and%20Basics/Untitled%2014.png](2%20CHAPTER%201%20Motivations%20and%20Basics/Untitled%2014.png)
+    
     - Binomial Distribution
         - 이 분포의 그래프는 선이 아니라 점점으로 되어있음. ← discrete 이기 때문
         - 0 or 1과 같은 discrete
